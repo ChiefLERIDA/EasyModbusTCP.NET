@@ -49,42 +49,42 @@ namespace EasyModbusAdvancedClient
     		toolTip1.InitialDelay=100;
     		toolTip1.ReshowDelay=500;
     		toolTip1.ShowAlways=true;
-    		toolTip1.SetToolTip(this.button3, "Add connection");
+    		toolTip1.SetToolTip(this.btnAddConnection, "Add connection");
     		
     		ToolTip toolTip2 = new ToolTip();
    			toolTip2.AutoPopDelay=5000;
     		toolTip2.InitialDelay=100;
     		toolTip2.ReshowDelay=500;
     		toolTip2.ShowAlways=true;
-    		toolTip2.SetToolTip(this.button4, "Remove connection");
+    		toolTip2.SetToolTip(this.btnDelConnection, "Remove connection");
     		
     		ToolTip toolTip3 = new ToolTip();
    			toolTip3.AutoPopDelay=5000;
     		toolTip3.InitialDelay=100;
     		toolTip3.ReshowDelay=500;
     		toolTip3.ShowAlways=true;
-    		toolTip3.SetToolTip(this.button5, "Edit connection");
+    		toolTip3.SetToolTip(this.btnEditConnection, "Edit connection");
     		
     		ToolTip toolTip4 = new ToolTip();
    			toolTip4.AutoPopDelay=5000;
     		toolTip4.InitialDelay=100;
     		toolTip4.ReshowDelay=500;
     		toolTip4.ShowAlways=true;
-    		toolTip4.SetToolTip(this.button6, "Add Function code");
+    		toolTip4.SetToolTip(this.btnAddFunctionCode, "Add Function code");
     		
     		ToolTip toolTip5 = new ToolTip();
    			toolTip5.AutoPopDelay=5000;
     		toolTip5.InitialDelay=100;
     		toolTip5.ReshowDelay=500;
     		toolTip5.ShowAlways=true;
-    		toolTip5.SetToolTip(this.button7, "Remove Function code");
+    		toolTip5.SetToolTip(this.btnDelFunctionCode, "Remove Function code");
     		
     		ToolTip toolTip6 = new ToolTip();
    			toolTip6.AutoPopDelay=5000;
     		toolTip6.InitialDelay=100;
     		toolTip6.ReshowDelay=500;
     		toolTip6.ShowAlways=true;
-    		toolTip6.SetToolTip(this.button8, "Edit Function code");
+    		toolTip6.SetToolTip(this.btnEditFunctionCode, "Edit Function code");
     		
     		    		
     		ToolTip toolTip7 = new ToolTip();
@@ -92,16 +92,28 @@ namespace EasyModbusAdvancedClient
     		toolTip7.InitialDelay=100;
     		toolTip7.ReshowDelay=500;
     		toolTip7.ShowAlways=true;
-    		toolTip7.SetToolTip(this.button9, "Stop all jobs");
+    		toolTip7.SetToolTip(this.btnStopAllJobs, "Stop all jobs");
        		    		
     		ToolTip toolTip8 = new ToolTip();
    			toolTip8.AutoPopDelay=5000;
     		toolTip8.InitialDelay=100;
     		toolTip8.ReshowDelay=500;
     		toolTip8.ShowAlways=true;
-    		toolTip8.SetToolTip(this.button10, "Start all jobs (continuous reading)");
+    		toolTip8.SetToolTip(this.btnStartAllJobs, "Start all jobs (continuous reading)");
 		}
-		
+
+        private void MainForm_Load(object sender, EventArgs e)
+        {
+            InitdgvFunctionCode();
+            // Load config xml
+            loadToolStripMenuItem_Click(null, null);
+
+        }
+
+        private void InitdgvFunctionCode()
+        {
+
+        }
 
         private void UpdateListBox(object sender)
         {
@@ -129,40 +141,55 @@ namespace EasyModbusAdvancedClient
         
         private void UpdateDataGridView(object sender)
         {
-        	for (int i = 0; i < dataGridView1.RowCount-1; i++)
-        	{
-        			foreach (ConnectionProperties connectionProperty in easyModbusManager.connectionPropertiesList)
-					{
-        				if (dataGridView1[0,i].Value != null)
-        				if (connectionProperty.ConnectionName.Equals(dataGridView1[0,i].Value.ToString()))
-        				{
-        					foreach (FunctionProperties functionProperty in connectionProperty.FunctionPropertiesList)
-        					{
-        						if (dataGridView1[1,i].Value != null)
-        							for (int j = 0; j < functionProperty.Quantity; j++)
-        								if (EasyModbusManager.getAddress(functionProperty.FunctionCode, functionProperty.StartingAdress, functionProperty.Quantity, j).Equals(dataGridView1[1,i].Value.ToString()))
-        								{
-        									if (functionProperty.values.GetType().Equals(typeof(Boolean[])))
-        										dataGridView1[4,i].Value=((bool[]) functionProperty.values)[j].ToString();
-        									else
-        									{
-        										if (dataGridView1[3,i].Value != null)
-        											if (dataGridView1[3,i].Value.Equals("UINT16 (0...65535)"))
-        												if (((int[]) functionProperty.values)[j] < 0)
-        													dataGridView1[4,i].Value=(65536+((int[]) functionProperty.values)[j]).ToString();
-        												else
-        													dataGridView1[4,i].Value=((int[]) functionProperty.values)[j].ToString();
-        											else
-        												dataGridView1[4,i].Value=((int[]) functionProperty.values)[j].ToString();
-        										else
-        											dataGridView1[4,i].Value=((int[]) functionProperty.values)[j].ToString();
-        									}
-        								}
-        					}
-					   	
-        				}
-					}
-        	}
+            for (int i = 0; i < dgvFunctionCode.RowCount - 1; i++)
+            {
+                foreach (ConnectionProperties connectionProperty in easyModbusManager.connectionPropertiesList)
+                {
+                    if (dgvFunctionCode[0, i].Value != null)
+                    {
+                        if (connectionProperty.ConnectionName.Equals(dgvFunctionCode[0, i].Value.ToString()))
+                        {
+                            foreach (FunctionProperties functionProperty in connectionProperty.FunctionPropertiesList)
+                            {
+                                if (dgvFunctionCode[1, i].Value != null)
+                                {
+                                    for (int j = 0; j < functionProperty.Quantity; j++)
+                                    {
+                                        if (functionProperty.values != null && EasyModbusManager.getAddress(functionProperty.FunctionCode, functionProperty.StartingAdress, functionProperty.Quantity, j).Equals(dgvFunctionCode[1, i].Value.ToString()))
+                                        {
+                                            if (functionProperty.values.GetType().Equals(typeof(Boolean[])))
+                                            {
+                                                dgvFunctionCode[3, i].Value = ((bool[])functionProperty.values)[j].ToString();
+                                            }
+                                            else
+                                            {
+                                                if (dgvFunctionCode[2, i].Value != null)
+                                                {
+                                                    if (dgvFunctionCode[2, i].Value.Equals("UINT16"))
+                                                    {
+                                                        if (((int[])functionProperty.values)[j] < 0)
+                                                            dgvFunctionCode[3, i].Value = (65536 + ((int[])functionProperty.values)[j]).ToString();
+                                                        else
+                                                            dgvFunctionCode[3, i].Value = ((int[])functionProperty.values)[j].ToString();
+                                                    }
+                                                    else
+                                                    {
+                                                        dgvFunctionCode[3, i].Value = ((int[])functionProperty.values)[j].ToString();
+                                                    }
+                                                }
+                                                else
+                                                {
+                                                    dgvFunctionCode[3, i].Value = ((int[])functionProperty.values)[j].ToString();
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
         }
         
 
@@ -277,14 +304,7 @@ namespace EasyModbusAdvancedClient
 		
 		
 		
-		void AddFunctionCodeToolStripMenuItemClick(object sender, EventArgs e)
-		{
-			if (treeView1.SelectedNode != null)
-			{
-				AddFunctionCodeForm addFunctionCodeForm = new AddFunctionCodeForm(easyModbusManager, treeView1.SelectedNode.Index);
-				addFunctionCodeForm.Show();
-			}
-		}
+		
 		
 		void UpdateValuesToolStripMenuItemClick(object sender, EventArgs e)
 		{
@@ -308,48 +328,49 @@ namespace EasyModbusAdvancedClient
 		void Button1Click(object sender, EventArgs e)
 		{
 			if (treeView1.SelectedNode == null) return;
-			dataGridView1.AllowUserToAddRows = false;
+			dgvFunctionCode.AllowUserToAddRows = false;
 			if (treeView1.SelectedNode.Level == 1)
 			{
-				dataGridView1.Rows.Add();
-				dataGridView1[0,dataGridView1.Rows.Count-1].Value=easyModbusManager.connectionPropertiesList[treeView1.SelectedNode.Index].ConnectionName;				
+				dgvFunctionCode.Rows.Add();
+				dgvFunctionCode[0,dgvFunctionCode.Rows.Count-1].Value=easyModbusManager.connectionPropertiesList[treeView1.SelectedNode.Index].ConnectionName;				
 			}
 			if (treeView1.SelectedNode.Level == 2)
 			{
-				dataGridView1.Rows.Add();
-				dataGridView1[0,dataGridView1.Rows.Count-1].Value=easyModbusManager.connectionPropertiesList[treeView1.SelectedNode.Parent.Index].ConnectionName;				
+				dgvFunctionCode.Rows.Add();
+				dgvFunctionCode[0,dgvFunctionCode.Rows.Count-1].Value=easyModbusManager.connectionPropertiesList[treeView1.SelectedNode.Parent.Index].ConnectionName;				
 			}
-				dataGridView1.AllowUserToAddRows = true;
+				dgvFunctionCode.AllowUserToAddRows = true;
 		}
 		
 		void Button2Click(object sender, EventArgs e)
 		{
 			if (treeView1.SelectedNode == null) return;
+
 			if (treeView1.SelectedNode.Level == 2)
 			{
 				
 				FunctionProperties functionProperty = easyModbusManager.connectionPropertiesList[treeView1.SelectedNode.Parent.Index].FunctionPropertiesList[treeView1.SelectedNode.Index];
 				ConnectionProperties connectionProperty = easyModbusManager.connectionPropertiesList[treeView1.SelectedNode.Parent.Index];
 				
-				dataGridView1.AllowUserToAddRows = false;
+				dgvFunctionCode.AllowUserToAddRows = false;
 				for (int i = 0; i < functionProperty.Quantity; i++)
 				{
-				    dataGridView1.Rows.Add();
-					dataGridView1[0,dataGridView1.Rows.Count-1].Value = connectionProperty.ConnectionName;
-					dataGridView1.ClearSelection();
-					dataGridView1.CurrentCell = null;
+				    dgvFunctionCode.Rows.Add();
+					dgvFunctionCode[0,dgvFunctionCode.Rows.Count-1].Value = connectionProperty.ConnectionName;
+					dgvFunctionCode.ClearSelection();
+					dgvFunctionCode.CurrentCell = null;
 					DataGridView1CellClick(null, null);
 				
 					// DataGridViewComboBoxCell cbCell = (DataGridViewComboBoxCell)dataGridView1.Rows[row].Cells[1];
 					switch (functionProperty.FunctionCode)
 					{
-        			case FunctionCode.ReadCoils: dataGridView1[1,dataGridView1.Rows.Count-1].Value = "0x"+(functionProperty.StartingAdress+i+1).ToString();
+        			case FunctionCode.ReadCoils: dgvFunctionCode[1,dgvFunctionCode.Rows.Count-1].Value = "0x"+(functionProperty.StartingAdress+i+1).ToString();
 						break;
-					case FunctionCode.ReadDiscreteInputs: dataGridView1[1,dataGridView1.Rows.Count-1].Value = "1x"+(functionProperty.StartingAdress+i+1).ToString();
+					case FunctionCode.ReadDiscreteInputs: dgvFunctionCode[1,dgvFunctionCode.Rows.Count-1].Value = "1x"+(functionProperty.StartingAdress+i+1).ToString();
 						break;
-					case FunctionCode.ReadHoldingRegisters: dataGridView1[1,dataGridView1.Rows.Count-1].Value = "4x"+(functionProperty.StartingAdress+i+1).ToString();
+					case FunctionCode.ReadHoldingRegisters: dgvFunctionCode[1,dgvFunctionCode.Rows.Count-1].Value = "4x"+(functionProperty.StartingAdress+i+1).ToString();
 						break;
-					case FunctionCode.ReadInputRegisters: dataGridView1[1,dataGridView1.Rows.Count-1].Value = "3x"+(functionProperty.StartingAdress+i+1).ToString();
+					case FunctionCode.ReadInputRegisters: dgvFunctionCode[1,dgvFunctionCode.Rows.Count-1].Value = "3x"+(functionProperty.StartingAdress+i+1).ToString();
 						break;
 					default: break;
 					
@@ -358,7 +379,7 @@ namespace EasyModbusAdvancedClient
 									
 										
 				}
-				dataGridView1.AllowUserToAddRows = true;
+				dgvFunctionCode.AllowUserToAddRows = true;
 			}
 			
 	
@@ -370,15 +391,15 @@ namespace EasyModbusAdvancedClient
 		
 
 			//*********************************************************************Set combo box for Connection
-			string[] connectionNames = new string[dataGridView1.RowCount];
+			string[] connectionNames = new string[dgvFunctionCode.RowCount];
 			//Save data from column "Connection name"
-			for (int i = 0; i < dataGridView1.RowCount; i++) 
+			for (int i = 0; i < dgvFunctionCode.RowCount; i++) 
 			{
-				if (dataGridView1[0, i].Value != null)
-					connectionNames[i] = dataGridView1[0, i].Value.ToString();
+				if (dgvFunctionCode[0, i].Value != null)
+					connectionNames[i] = dgvFunctionCode[0, i].Value.ToString();
 			}
 			DataGridViewComboBoxColumn cmb = new DataGridViewComboBoxColumn();
-			dataGridView1.Columns.RemoveAt(0);
+			dgvFunctionCode.Columns.RemoveAt(0);
             cmb.HeaderText = "Connection";
             if (easyModbusManager.connectionPropertiesList.Count > 0)
             	cmb.MaxDropDownItems = easyModbusManager.connectionPropertiesList.Count;
@@ -388,11 +409,11 @@ namespace EasyModbusAdvancedClient
             {
             	cmb.Items.Add(connectionProperty.ConnectionName);
             }
-            dataGridView1.Columns.Insert(0,cmb);
+            dgvFunctionCode.Columns.Insert(0,cmb);
             //Restore  data to column "connection name"
-            for (int i = 0; i < dataGridView1.RowCount; i++) 
+            for (int i = 0; i < dgvFunctionCode.RowCount; i++) 
 			{
-				dataGridView1[0, i].Value = connectionNames[i] ;
+				dgvFunctionCode[0, i].Value = connectionNames[i] ;
 			}
             
  
@@ -407,11 +428,11 @@ namespace EasyModbusAdvancedClient
 		{
 	            //********************************************************************Set combo box for address
 	            int row = 0;
-	            if (dataGridView1.CurrentCell == null)
-	            	row = dataGridView1.RowCount-1;
+	            if (dgvFunctionCode.CurrentCell == null)
+	            	row = dgvFunctionCode.RowCount-1;
 	            else 	
-            row = dataGridView1.CurrentCell.RowIndex;
-            DataGridViewComboBoxCell cbCell = (DataGridViewComboBoxCell)dataGridView1.Rows[row].Cells[1];
+            row = dgvFunctionCode.CurrentCell.RowIndex;
+            DataGridViewComboBoxCell cbCell = (DataGridViewComboBoxCell)dgvFunctionCode.Rows[row].Cells[1];
             string selectedCell = null;
             if (cbCell.Value != null)
              	selectedCell = cbCell.Value.ToString();
@@ -419,8 +440,8 @@ namespace EasyModbusAdvancedClient
             cbCell.Items.Clear();
             for (int j = 0; j < easyModbusManager.connectionPropertiesList.Count; j++)
             {
-            	if  (dataGridView1[0,row].Value != null)
-            	if (easyModbusManager.connectionPropertiesList[j].ConnectionName == dataGridView1[0,row].Value.ToString())
+            	if  (dgvFunctionCode[0,row].Value != null)
+            	if (easyModbusManager.connectionPropertiesList[j].ConnectionName == dgvFunctionCode[0,row].Value.ToString())
             	{
             			
             		for (int k = 0; k < easyModbusManager.connectionPropertiesList[j].FunctionPropertiesList.Count; k++)
@@ -458,23 +479,25 @@ namespace EasyModbusAdvancedClient
             			cbCell.Value = selectedCell;
             }
             //********************************************************************Set combo box for datatype
-            if (dataGridView1[1,row].Value != null)
+            if (dgvFunctionCode[1,row].Value != null)
             {
-            cbCell = (DataGridViewComboBoxCell)dataGridView1.Rows[row].Cells[3];
+            cbCell = (DataGridViewComboBoxCell)dgvFunctionCode.Rows[row].Cells[2];
             selectedCell = null;
             if (cbCell.Value != null)
              	selectedCell = cbCell.Value.ToString();
             cbCell.Value = null;
             cbCell.Items.Clear();
-                if (dataGridView1[1, row].Value.ToString().StartsWith("0x") | dataGridView1[1, row].Value.ToString().StartsWith("1x"))
+                if (dgvFunctionCode[1, row].Value.ToString().StartsWith("0x") 
+                    || dgvFunctionCode[1, row].Value.ToString().StartsWith("1x"))
                 {
-                    cbCell.Items.Add("BOOL (FALSE...TRUE)");
-                    cbCell.Value = "BOOL (FALSE...TRUE)";
+                    cbCell.Items.Add("BOOL");
+                    cbCell.Value = "BOOL";
                 }
-            if (dataGridView1[1,row].Value.ToString().StartsWith("3x")|dataGridView1[1,row].Value.ToString().StartsWith("4x"))
+            if (dgvFunctionCode[1,row].Value.ToString().StartsWith("3x")
+                    || dgvFunctionCode[1,row].Value.ToString().StartsWith("4x"))
             {
-            	cbCell.Items.Add("INT16 (-32768...32767)");
-            	cbCell.Items.Add("UINT16 (0...65535)");
+            	cbCell.Items.Add("INT16");
+            	cbCell.Items.Add("UINT16");
             }
             if (selectedCell != null)
             {
@@ -486,7 +509,14 @@ namespace EasyModbusAdvancedClient
             }
             
 		}
-		void DeleteConnectionToolStripMenuItemClick(object sender, EventArgs e)
+
+        void AddConnectionToolStripMenuItemClick(object sender, System.EventArgs e)
+        {
+            AddConnectionForm addConnectionForm = new AddConnectionForm(easyModbusManager);
+            addConnectionForm.ShowDialog();
+        }
+
+        void DeleteConnectionToolStripMenuItemClick(object sender, EventArgs e)
 		{
 			if (treeView1.SelectedNode != null)
 				if (treeView1.SelectedNode.Level == 1)
@@ -506,7 +536,23 @@ namespace EasyModbusAdvancedClient
 			}
 			}
 		}
-		void EditFunctionCodeToolStripMenuItemClick(object sender, EventArgs e)
+        void AddFunctionCodeToolStripMenuItemClick(object sender, EventArgs e)
+        {
+            if (treeView1.SelectedNode != null)
+            {
+                AddFunctionCodeForm addFunctionCodeForm = new AddFunctionCodeForm(easyModbusManager, treeView1.SelectedNode.Index);
+                addFunctionCodeForm.Show();
+            }
+        }
+        void DeleteFunctionCodeToolStripMenuItemClick(object sender, EventArgs e)
+        {
+            if (treeView1.SelectedNode != null)
+                if (treeView1.SelectedNode.Level == 2)
+                {
+                    easyModbusManager.RemoveFunctionProperty(treeView1.SelectedNode.Parent.Index, treeView1.SelectedNode.Index);
+                }
+        }
+        void EditFunctionCodeToolStripMenuItemClick(object sender, EventArgs e)
 		{
 			if (treeView1.SelectedNode == null) return;
 			int indexFunction = treeView1.SelectedNode.Index;
@@ -518,7 +564,51 @@ namespace EasyModbusAdvancedClient
 			}
 			
 		}
-		void UpdateAllValuesToolStripMenuItemClick(object sender, EventArgs e)
+
+        void StartAllJobsToolStripMenuItemClick(object sender, EventArgs e)
+        {
+            foreach (ConnectionProperties connectionProperty in easyModbusManager.connectionPropertiesList)
+            {
+                if (connectionProperty.ModbusTypeProperty == ModbusType.ModbusTCP)
+                {
+                    connectionProperty.modbusClient = new EasyModbus.ModbusClient();
+                    connectionProperty.modbusClient.UnitIdentifier = (byte)connectionProperty.SlaveID;
+                }
+                else
+                {
+                    connectionProperty.modbusClient = new EasyModbus.ModbusClient(connectionProperty.ComPort);
+                    connectionProperty.modbusClient.UnitIdentifier = (byte)connectionProperty.SlaveID;
+                }
+
+                if (connectionProperty.modbusClient == null)
+                    connectionProperty.modbusClient.Connect();
+
+                connectionProperty.modbusClient.ReceiveDataChanged += new EasyModbus.ModbusClient.ReceiveDataChangedHandler(UpdateTextBoxReceive);
+                connectionProperty.modbusClient.SendDataChanged += new EasyModbus.ModbusClient.SendDataChangedHandler(UpdateTextBoxSend);
+                GetValuesThreadObject getValuesThreadObject = new GetValuesThreadObject();
+                getValuesThreadObject.connectionProperty = connectionProperty;
+                if (connectionProperty.timer == null)
+                    connectionProperty.timer = new System.Threading.Timer(GetValuesThread, getValuesThreadObject, connectionProperty.CycleTime, connectionProperty.CycleTime);
+                else
+                    connectionProperty.timer.Change(connectionProperty.CycleTime, connectionProperty.CycleTime);
+            }
+
+            UpdateNodesConnectedStatus();
+        }
+        void StopAllJobsToolStripMenuItemClick(object sender, EventArgs e)
+        {
+            foreach (ConnectionProperties connectionProperty in easyModbusManager.connectionPropertiesList)
+            {
+                connectionProperty.modbusClient.ReceiveDataChanged -= new EasyModbus.ModbusClient.ReceiveDataChangedHandler(UpdateTextBoxReceive);
+                connectionProperty.modbusClient.SendDataChanged -= new EasyModbus.ModbusClient.SendDataChangedHandler(UpdateTextBoxSend);
+                connectionProperty.timer.Change(System.Threading.Timeout.Infinite, System.Threading.Timeout.Infinite);
+                connectionProperty.modbusClient.Disconnect();
+            }
+
+            UpdateNodesConnectedStatus();
+        }
+
+        void UpdateAllValuesToolStripMenuItemClick(object sender, EventArgs e)
 		{
 			try
 			{
@@ -531,55 +621,69 @@ namespace EasyModbusAdvancedClient
 				MessageBox.Show(exc.Message, "Exception Reading values", MessageBoxButtons.OK, MessageBoxIcon.Error);
 			}
 		}
-		void DeleteFunctionCodeToolStripMenuItemClick(object sender, EventArgs e)
-		{
-				if (treeView1.SelectedNode != null)
-				if (treeView1.SelectedNode.Level == 2)
-				{
-					easyModbusManager.RemoveFunctionProperty(treeView1.SelectedNode.Parent.Index, treeView1.SelectedNode.Index);
-				}	
-		}
+
+        
 		void MainFormSizeChanged(object sender, EventArgs e)
 		{
 			treeView1.Height = this.Height - 112;
             tabControl1.Height = this.Height - 70;
-			dataGridView1.Height = this.tabControl1.Height - 30;
-			dataGridView1.Width = this.splitContainer1.Panel2.Width - 85;
+			dgvFunctionCode.Height = this.tabControl1.Height - 30;
+			dgvFunctionCode.Width = this.splitContainer1.Panel2.Width - 85;
 		}
-		void Button3Click(object sender, EventArgs e)
+
+
+		void btnAddConnection_Click(object sender, EventArgs e)
 		{
 			this.AddConnectionToolStripMenuItemClick(null, null);
 		}
-		void Button4Click(object sender, EventArgs e)
+		void btnDelConnection_Click(object sender, EventArgs e)
 		{
 			this.DeleteConnectionToolStripMenuItemClick(null, null);
 		}
-		void Button5Click(object sender, EventArgs e)
+		void btnEditConnection_Click(object sender, EventArgs e)
 		{
 			this.EditConnectionToolStripMenuItemClick(null, null);
 		}
-		void Button6Click(object sender, EventArgs e)
+		void btnAddFunctionCode_Click(object sender, EventArgs e)
 		{
 			this.AddFunctionCodeToolStripMenuItemClick(null, null);
 		}
-		void Button7Click(object sender, EventArgs e)
+		void btnDelFunctionCode_Click(object sender, EventArgs e)
 		{
 			this.DeleteFunctionCodeToolStripMenuItemClick(null, null);
 		}
-		void Button8Click(object sender, EventArgs e)
+		void btnEditFunctionCode_Click(object sender, EventArgs e)
 		{
 			this.EditFunctionCodeToolStripMenuItemClick(null, null);
 		}
-		void Button9Click(object sender, EventArgs e)
+
+        void btnStartAllJobs_Click(object sender, EventArgs e)
+        {
+            this.StartAllJobsToolStripMenuItemClick(null, null);
+        }
+        void btnStopAllJobs_Click(object sender, EventArgs e)
 		{
 			this.StopAllJobsToolStripMenuItemClick(null, null);
 		}
 		
 		void StartSingleJobToolStripMenuItemClick(object sender, EventArgs e)
 		{
-			GetValuesThreadObject getValuesThreadObject = new GetValuesThreadObject();
+            
+
+            GetValuesThreadObject getValuesThreadObject = new GetValuesThreadObject();
 			getValuesThreadObject.connectionProperty = easyModbusManager.connectionPropertiesList[treeView1.SelectedNode.Parent.Index];
 			getValuesThreadObject.functionPropertyIndex = treeView1.SelectedNode.Index;
+
+            if (getValuesThreadObject.connectionProperty.ModbusTypeProperty == ModbusType.ModbusTCP)
+            {
+                getValuesThreadObject.connectionProperty.modbusClient = new EasyModbus.ModbusClient();
+                getValuesThreadObject.connectionProperty.modbusClient.UnitIdentifier = (byte)getValuesThreadObject.connectionProperty.SlaveID;
+            }
+            else
+            {
+                getValuesThreadObject.connectionProperty.modbusClient = new EasyModbus.ModbusClient(getValuesThreadObject.connectionProperty.ComPort);
+                getValuesThreadObject.connectionProperty.modbusClient.UnitIdentifier = (byte)getValuesThreadObject.connectionProperty.SlaveID;
+            }
 
             if (getValuesThreadObject.connectionProperty.timer == null)
 			    getValuesThreadObject.connectionProperty.timer = new System.Threading.Timer(GetValuesThread, getValuesThreadObject , easyModbusManager.connectionPropertiesList[treeView1.SelectedNode.Parent.Index].CycleTime, easyModbusManager.connectionPropertiesList[treeView1.SelectedNode.Parent.Index].CycleTime);
@@ -620,29 +724,6 @@ namespace EasyModbusAdvancedClient
 			}
 		}
 		
-		void StartAllJobsToolStripMenuItemClick(object sender, EventArgs e)
-		{		
-			foreach(ConnectionProperties connectionProperty in easyModbusManager.connectionPropertiesList)
-			{
-                if (connectionProperty.modbusClient == null)
-                    connectionProperty.modbusClient.Connect();
-
-                connectionProperty.modbusClient.ReceiveDataChanged += new EasyModbus.ModbusClient.ReceiveDataChangedHandler(UpdateTextBoxReceive);
-                connectionProperty.modbusClient.SendDataChanged += new EasyModbus.ModbusClient.SendDataChangedHandler(UpdateTextBoxSend);
-                GetValuesThreadObject getValuesThreadObject = new GetValuesThreadObject();
-				getValuesThreadObject.connectionProperty = connectionProperty;
-                if (connectionProperty.timer == null)
-                    connectionProperty.timer = new System.Threading.Timer(GetValuesThread, getValuesThreadObject , connectionProperty.CycleTime, connectionProperty.CycleTime);
-                else
-                    connectionProperty.timer.Change(connectionProperty.CycleTime, connectionProperty.CycleTime);
-            }
-
-			UpdateNodesConnectedStatus();
-		}
-		void Button10Click(object sender, EventArgs e)
-		{
-			this.StartAllJobsToolStripMenuItemClick(null, null);
-		}
 		
 		void UpdateNodesConnectedStatus()
 		{	
@@ -651,25 +732,19 @@ namespace EasyModbusAdvancedClient
 			{
 				foreach (TreeNode tn2 in tn1.Nodes)
 				{
-					if (easyModbusManager.connectionPropertiesList[tn1.Index].modbusClient.Connected)
-						tn2.BackColor = Color.Green;
-					else
-						tn2.BackColor = Color.White;			
+                    if (easyModbusManager.connectionPropertiesList[tn1.Index].modbusClient != null)
+                    {
+                        if (easyModbusManager.connectionPropertiesList[tn1.Index].modbusClient.Connected)
+                            tn2.BackColor = Color.Green;
+                        else
+                            tn2.BackColor = Color.Red;
+                    }                    			
 				}
 			}
 			
 		}
-		void StopAllJobsToolStripMenuItemClick(object sender, EventArgs e)
-		{
-			foreach(ConnectionProperties connectionProperty in easyModbusManager.connectionPropertiesList)
-			{
-                connectionProperty.modbusClient.ReceiveDataChanged -= new EasyModbus.ModbusClient.ReceiveDataChangedHandler(UpdateTextBoxReceive);
-                connectionProperty.modbusClient.SendDataChanged -= new EasyModbus.ModbusClient.SendDataChangedHandler(UpdateTextBoxSend);
-                connectionProperty.timer.Change(System.Threading.Timeout.Infinite, System.Threading.Timeout.Infinite);
-				connectionProperty.modbusClient.Disconnect();
-			}
-			UpdateNodesConnectedStatus();		
-		}
+
+        
 		
 		
 	public class GetValuesThreadObject
@@ -703,19 +778,19 @@ namespace EasyModbusAdvancedClient
 
         private void saveWorkspaceToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            easyModbusManager.WriteXML(dataGridView1);
+            easyModbusManager.WriteXML(dgvFunctionCode);
         }
 
         private void loadToolStripMenuItem_Click(object sender, EventArgs e)
         {
             easyModbusManager.dataGridViewChanged += new EasyModbusManager.DataGridViewChanged(DataGridViewLinesChanged);
-            easyModbusManager.ReadXML(dataGridView1);
+            easyModbusManager.ReadXML(dgvFunctionCode);
         }
 
         private void DataGridViewLinesChanged(object sender)
         {
-            dataGridView1.ClearSelection();
-            dataGridView1.CurrentCell = null;
+            dgvFunctionCode.ClearSelection();
+            dgvFunctionCode.CurrentCell = null;
 
             DataGridView1CellClick(null, null);
         }
@@ -758,6 +833,8 @@ namespace EasyModbusAdvancedClient
                 textBox1.AppendText(System.Environment.NewLine);
             }
         }
+
+        
     }
 
 }

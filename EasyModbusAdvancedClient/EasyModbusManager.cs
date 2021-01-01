@@ -244,16 +244,20 @@ namespace EasyModbusAdvancedClient
                 xmlRoot.AppendChild(xmlChildconnection);
 
                 //
-                xmlChildDataView = xmlDocument.CreateElement("dataGridView");
+                xmlChildconnection = xmlDocument.CreateElement("dataGridView");
                 xmlChild2 = null;
                 xmlChild3 = null;
                 for (int j = 0; j < dataGridView.Rows.Count; j++)
                 {
+
                     if (dataGridView[0, j].Value != null 
                         || dataGridView[1, j].Value != null 
                         || dataGridView[2, j].Value != null 
                         || dataGridView[3, j].Value != null)
                     {
+                        if (connectionPropertiesList[i].ConnectionName != dataGridView[0, j].Value.ToString())
+                            continue;
+
                         xmlChild2 = xmlDocument.CreateElement("dataGridViewLines");                        
                     }
 
@@ -273,15 +277,15 @@ namespace EasyModbusAdvancedClient
 
                     if (dataGridView[2, j].Value != null)
                     {
-                        xmlChild3 = xmlDocument.CreateElement("columnTag");
+                        xmlChild3 = xmlDocument.CreateElement("columnDataType");
                         xmlChild3.InnerText = dataGridView[2, j].Value.ToString();
-                        xmlChild2.AppendChild(xmlChild3);                        
+                        xmlChild2.AppendChild(xmlChild3);
                     }
 
-                    if (dataGridView[3, j].Value != null)
+                    if (dataGridView[4, j].Value != null)
                     {
-                        xmlChild3 = xmlDocument.CreateElement("columnDataType");
-                        xmlChild3.InnerText = dataGridView[3, j].Value.ToString();
+                        xmlChild3 = xmlDocument.CreateElement("columnTag");
+                        xmlChild3.InnerText = dataGridView[4, j].Value.ToString();
                         xmlChild2.AppendChild(xmlChild3);                        
                     }
 
@@ -290,11 +294,11 @@ namespace EasyModbusAdvancedClient
                         || dataGridView[2, j].Value != null
                         || dataGridView[3, j].Value != null)
                     {
-                        xmlChildDataView.AppendChild(xmlChild2);
+                        xmlChildconnection.AppendChild(xmlChild2);
                     }                    
                 }
 
-                xmlRoot.AppendChild(xmlChildDataView);
+                xmlRoot.AppendChild(xmlChildconnection);
                 xmlDocument.AppendChild(xmlRoot);
                 xmlDocument.Save("textWriter.xml");
             }
@@ -325,11 +329,15 @@ namespace EasyModbusAdvancedClient
                 while (xmlNode3 != null)
                 {
                     xmlNodeList2 = xmlNode3.ChildNodes;
-                    FunctionProperties functionProperty = new FunctionProperties();
-                    foreach (XmlNode xmlNode2 in xmlNodeList2)
+
+                    //foreach (XmlNode xmlNode2 in xmlNodeList2)
+                    for (int i = 0; i < xmlNodeList2.Count; i++)
                     {
-                        if (xmlNode2.Name == "functionCode")
-                            switch (xmlNode2.InnerText)
+                        FunctionProperties functionProperty = new FunctionProperties();
+
+                        if (xmlNodeList2[i].Name == "functionCode")
+                        {
+                            switch (xmlNodeList2[i].InnerText)
                             {
                                 case "ReadCoils":
                                     functionProperty.FunctionCode = FunctionCode.ReadCoils;
@@ -344,12 +352,15 @@ namespace EasyModbusAdvancedClient
                                     functionProperty.FunctionCode = FunctionCode.ReadInputRegisters;
                                     break;
                             }
-                        if (xmlNode2.Name == "startingAddress")
-                            functionProperty.StartingAdress = Int32.Parse(xmlNode2.InnerText);
-                        if (xmlNode2.Name == "quantity")
-                            functionProperty.Quantity = Int32.Parse(xmlNode2.InnerText);
+                        }
+
+                        if (xmlNodeList2[++i].Name == "quantity")
+                            functionProperty.Quantity = Int32.Parse(xmlNodeList2[i].InnerText);
+                        if (xmlNodeList2[++i].Name == "startingAddress")
+                            functionProperty.StartingAdress = Int32.Parse(xmlNodeList2[i].InnerText);
+
+                        connectionProperty.FunctionPropertiesList.Add(functionProperty);
                     }
-                    connectionProperty.FunctionPropertiesList.Add(functionProperty);
                     xmlNode3 = xmlNode3.NextSibling;
                 }
                 connectionPropertiesList.Add(connectionProperty);
@@ -362,19 +373,19 @@ namespace EasyModbusAdvancedClient
             foreach (XmlNode xmlNode in xmlNodeList)
             {
                 dataGridView.Rows.Add();
+
                 if  (xmlNode["columnConnection"] != null)
                     dataGridView[0, dataGridView.Rows.Count - 1].Value = xmlNode["columnConnection"].InnerText;
-                dataGridView.ClearSelection();
-                dataGridView.CurrentCell = null;
-                
+                                
+                    dataGridViewChanged(this);
+
                 if (xmlNode["columnAddress"] != null)
                     dataGridView[1, dataGridView.Rows.Count - 1].Value = xmlNode["columnAddress"].InnerText;
-                if (dataGridViewChanged != null)
-                    dataGridViewChanged(this);
-                if (xmlNode["columnTag"] != null)
-                    dataGridView[2, dataGridView.Rows.Count - 1].Value = xmlNode["columnTag"].InnerText;
                 if (xmlNode["columnDataType"] != null)
-                    dataGridView[3, dataGridView.Rows.Count - 1].Value = xmlNode["columnDataType"].InnerText;
+                    dataGridView[2, dataGridView.Rows.Count - 1].Value = xmlNode["columnDataType"].InnerText;
+                if (xmlNode["columnTag"] != null)
+                    dataGridView[4, dataGridView.Rows.Count - 1].Value = xmlNode["columnTag"].InnerText;
+                
             }
             dataGridView.AllowUserToAddRows = true;
         }
