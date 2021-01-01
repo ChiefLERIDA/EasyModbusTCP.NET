@@ -580,10 +580,12 @@ namespace EasyModbusAdvancedClient
 			GetValuesThreadObject getValuesThreadObject = new GetValuesThreadObject();
 			getValuesThreadObject.connectionProperty = easyModbusManager.connectionPropertiesList[treeView1.SelectedNode.Parent.Index];
 			getValuesThreadObject.functionPropertyIndex = treeView1.SelectedNode.Index;
+
             if (getValuesThreadObject.connectionProperty.timer == null)
 			    getValuesThreadObject.connectionProperty.timer = new System.Threading.Timer(GetValuesThread, getValuesThreadObject , easyModbusManager.connectionPropertiesList[treeView1.SelectedNode.Parent.Index].CycleTime, easyModbusManager.connectionPropertiesList[treeView1.SelectedNode.Parent.Index].CycleTime);
             else
                 getValuesThreadObject.connectionProperty.timer.Change(easyModbusManager.connectionPropertiesList[treeView1.SelectedNode.Parent.Index].CycleTime, easyModbusManager.connectionPropertiesList[treeView1.SelectedNode.Parent.Index].CycleTime);
+            
             getValuesThreadObject.connectionProperty.modbusClient.ReceiveDataChanged -= new EasyModbus.ModbusClient.ReceiveDataChangedHandler(UpdateTextBoxReceive);
             getValuesThreadObject.connectionProperty.modbusClient.SendDataChanged -= new EasyModbus.ModbusClient.SendDataChangedHandler(UpdateTextBoxSend);
 
@@ -622,6 +624,9 @@ namespace EasyModbusAdvancedClient
 		{		
 			foreach(ConnectionProperties connectionProperty in easyModbusManager.connectionPropertiesList)
 			{
+                if (connectionProperty.modbusClient == null)
+                    connectionProperty.modbusClient.Connect();
+
                 connectionProperty.modbusClient.ReceiveDataChanged += new EasyModbus.ModbusClient.ReceiveDataChangedHandler(UpdateTextBoxReceive);
                 connectionProperty.modbusClient.SendDataChanged += new EasyModbus.ModbusClient.SendDataChangedHandler(UpdateTextBoxSend);
                 GetValuesThreadObject getValuesThreadObject = new GetValuesThreadObject();
@@ -631,6 +636,7 @@ namespace EasyModbusAdvancedClient
                 else
                     connectionProperty.timer.Change(connectionProperty.CycleTime, connectionProperty.CycleTime);
             }
+
 			UpdateNodesConnectedStatus();
 		}
 		void Button10Click(object sender, EventArgs e)
