@@ -82,7 +82,7 @@
             this.easyModbusTCPServerBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.checkBox10 = new System.Windows.Forms.CheckBox();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.performanceCounter1 = new System.Diagnostics.PerformanceCounter();
+            //this.performanceCounter1 = new System.Diagnostics.PerformanceCounter();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.setupToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -101,7 +101,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.form1BindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.easyModbusTCPServerBindingSource)).BeginInit();
             this.panel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.performanceCounter1)).BeginInit();
+            //((System.ComponentModel.ISupportInitialize)(this.performanceCounter1)).BeginInit();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -111,10 +111,10 @@
             this.tabControl1.Controls.Add(this.tabPage2);
             this.tabControl1.Controls.Add(this.tabPage3);
             this.tabControl1.Controls.Add(this.tabPage4);
-            this.tabControl1.Location = new System.Drawing.Point(588, 63);
+            this.tabControl1.Location = new System.Drawing.Point(686, 58);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(307, 502);
+            this.tabControl1.Size = new System.Drawing.Size(358, 463);
             this.tabControl1.TabIndex = 0;
             this.tabControl1.SelectedIndexChanged += new System.EventHandler(this.tabControl1_SelectedIndexChanged);
             this.tabControl1.MouseEnter += new System.EventHandler(this.tabControl1_MouseEnter);
@@ -127,7 +127,7 @@
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(299, 476);
+            this.tabPage1.Size = new System.Drawing.Size(350, 437);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Discrete Inputs";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -136,12 +136,12 @@
             // 
             this.vScrollBar1.Cursor = System.Windows.Forms.Cursors.Default;
             this.vScrollBar1.LargeChange = 20;
-            this.vScrollBar1.Location = new System.Drawing.Point(264, 2);
+            this.vScrollBar1.Location = new System.Drawing.Point(308, 2);
             this.vScrollBar1.Maximum = 65534;
             this.vScrollBar1.Minimum = 1;
             this.vScrollBar1.Name = "vScrollBar1";
             this.vScrollBar1.Padding = new System.Windows.Forms.Padding(1);
-            this.vScrollBar1.Size = new System.Drawing.Size(21, 473);
+            this.vScrollBar1.Size = new System.Drawing.Size(21, 437);
             this.vScrollBar1.TabIndex = 1;
             this.vScrollBar1.Value = 1;
             this.vScrollBar1.ValueChanged += new System.EventHandler(this.vScrollBar1_ValueChanged);
@@ -162,12 +162,12 @@
             dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.ControlText;
             dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
             this.dataGridView1.DefaultCellStyle = dataGridViewCellStyle2;
-            this.dataGridView1.Location = new System.Drawing.Point(53, 2);
+            this.dataGridView1.Location = new System.Drawing.Point(62, 2);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.ReadOnly = true;
             this.dataGridView1.RowHeadersVisible = false;
             this.dataGridView1.ShowEditingIcon = false;
-            this.dataGridView1.Size = new System.Drawing.Size(204, 473);
+            this.dataGridView1.Size = new System.Drawing.Size(238, 437);
             this.dataGridView1.TabIndex = 0;
             this.dataGridView1.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellDoubleClick);
             // 
@@ -192,7 +192,7 @@
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(299, 476);
+            this.tabPage2.Size = new System.Drawing.Size(350, 437);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Coils";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -201,12 +201,12 @@
             // 
             this.vScrollBar2.Cursor = System.Windows.Forms.Cursors.Default;
             this.vScrollBar2.LargeChange = 20;
-            this.vScrollBar2.Location = new System.Drawing.Point(264, 2);
+            this.vScrollBar2.Location = new System.Drawing.Point(308, 2);
             this.vScrollBar2.Maximum = 65534;
             this.vScrollBar2.Minimum = 1;
             this.vScrollBar2.Name = "vScrollBar2";
             this.vScrollBar2.Padding = new System.Windows.Forms.Padding(1);
-            this.vScrollBar2.Size = new System.Drawing.Size(21, 473);
+            this.vScrollBar2.Size = new System.Drawing.Size(21, 437);
             this.vScrollBar2.TabIndex = 2;
             this.vScrollBar2.Value = 1;
             this.vScrollBar2.ValueChanged += new System.EventHandler(this.vScrollBar2_ValueChanged);
@@ -227,12 +227,12 @@
             dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.ControlText;
             dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
             this.dataGridView2.DefaultCellStyle = dataGridViewCellStyle4;
-            this.dataGridView2.Location = new System.Drawing.Point(53, 2);
+            this.dataGridView2.Location = new System.Drawing.Point(62, 2);
             this.dataGridView2.Name = "dataGridView2";
             this.dataGridView2.ReadOnly = true;
             this.dataGridView2.RowHeadersVisible = false;
             this.dataGridView2.ShowEditingIcon = false;
-            this.dataGridView2.Size = new System.Drawing.Size(204, 473);
+            this.dataGridView2.Size = new System.Drawing.Size(238, 437);
             this.dataGridView2.TabIndex = 1;
             this.dataGridView2.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView2_CellDoubleClick);
             this.dataGridView2.MouseEnter += new System.EventHandler(this.dataGridView2_MouseEnter);
@@ -259,7 +259,7 @@
             this.tabPage3.Location = new System.Drawing.Point(4, 22);
             this.tabPage3.Name = "tabPage3";
             this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage3.Size = new System.Drawing.Size(299, 476);
+            this.tabPage3.Size = new System.Drawing.Size(350, 437);
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "Input Registers";
             this.tabPage3.UseVisualStyleBackColor = true;
@@ -268,12 +268,12 @@
             // 
             this.vScrollBar3.Cursor = System.Windows.Forms.Cursors.Default;
             this.vScrollBar3.LargeChange = 20;
-            this.vScrollBar3.Location = new System.Drawing.Point(264, 2);
+            this.vScrollBar3.Location = new System.Drawing.Point(308, 2);
             this.vScrollBar3.Maximum = 65534;
             this.vScrollBar3.Minimum = 1;
             this.vScrollBar3.Name = "vScrollBar3";
             this.vScrollBar3.Padding = new System.Windows.Forms.Padding(1);
-            this.vScrollBar3.Size = new System.Drawing.Size(21, 473);
+            this.vScrollBar3.Size = new System.Drawing.Size(21, 437);
             this.vScrollBar3.TabIndex = 2;
             this.vScrollBar3.Value = 1;
             this.vScrollBar3.ValueChanged += new System.EventHandler(this.vScrollBar3_ValueChanged);
@@ -294,11 +294,11 @@
             dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.ControlText;
             dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
             this.dataGridView3.DefaultCellStyle = dataGridViewCellStyle5;
-            this.dataGridView3.Location = new System.Drawing.Point(53, 2);
+            this.dataGridView3.Location = new System.Drawing.Point(62, 2);
             this.dataGridView3.Name = "dataGridView3";
             this.dataGridView3.RowHeadersVisible = false;
             this.dataGridView3.ShowEditingIcon = false;
-            this.dataGridView3.Size = new System.Drawing.Size(204, 473);
+            this.dataGridView3.Size = new System.Drawing.Size(238, 437);
             this.dataGridView3.TabIndex = 1;
             this.dataGridView3.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView3_CellValueChanged);
             // 
@@ -320,7 +320,7 @@
             this.tabPage4.Location = new System.Drawing.Point(4, 22);
             this.tabPage4.Name = "tabPage4";
             this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage4.Size = new System.Drawing.Size(299, 476);
+            this.tabPage4.Size = new System.Drawing.Size(350, 437);
             this.tabPage4.TabIndex = 3;
             this.tabPage4.Text = "Holding Registers";
             this.tabPage4.UseVisualStyleBackColor = true;
@@ -329,12 +329,12 @@
             // 
             this.vScrollBar4.Cursor = System.Windows.Forms.Cursors.Default;
             this.vScrollBar4.LargeChange = 20;
-            this.vScrollBar4.Location = new System.Drawing.Point(264, 2);
+            this.vScrollBar4.Location = new System.Drawing.Point(308, 2);
             this.vScrollBar4.Maximum = 65534;
             this.vScrollBar4.Minimum = 1;
             this.vScrollBar4.Name = "vScrollBar4";
             this.vScrollBar4.Padding = new System.Windows.Forms.Padding(1);
-            this.vScrollBar4.Size = new System.Drawing.Size(21, 473);
+            this.vScrollBar4.Size = new System.Drawing.Size(21, 437);
             this.vScrollBar4.TabIndex = 2;
             this.vScrollBar4.Value = 1;
             this.vScrollBar4.ValueChanged += new System.EventHandler(this.vScrollBar4_ValueChanged);
@@ -355,11 +355,11 @@
             dataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.ControlText;
             dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
             this.dataGridView4.DefaultCellStyle = dataGridViewCellStyle6;
-            this.dataGridView4.Location = new System.Drawing.Point(53, 2);
+            this.dataGridView4.Location = new System.Drawing.Point(62, 2);
             this.dataGridView4.Name = "dataGridView4";
             this.dataGridView4.RowHeadersVisible = false;
             this.dataGridView4.ShowEditingIcon = false;
-            this.dataGridView4.Size = new System.Drawing.Size(204, 473);
+            this.dataGridView4.Size = new System.Drawing.Size(238, 437);
             this.dataGridView4.TabIndex = 1;
             this.dataGridView4.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView4_CellValueChanged);
             this.dataGridView4.MouseEnter += new System.EventHandler(this.dataGridView4_MouseEnter);
@@ -378,7 +378,7 @@
             // 
             // numericUpDown1
             // 
-            this.numericUpDown1.Location = new System.Drawing.Point(762, 37);
+            this.numericUpDown1.Location = new System.Drawing.Point(889, 34);
             this.numericUpDown1.Maximum = new decimal(new int[] {
             65515,
             0,
@@ -390,7 +390,7 @@
             0,
             0});
             this.numericUpDown1.Name = "numericUpDown1";
-            this.numericUpDown1.Size = new System.Drawing.Size(83, 20);
+            this.numericUpDown1.Size = new System.Drawing.Size(97, 21);
             this.numericUpDown1.TabIndex = 1;
             this.numericUpDown1.Value = new decimal(new int[] {
             1,
@@ -402,36 +402,36 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(669, 41);
+            this.label1.Location = new System.Drawing.Point(780, 38);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(87, 13);
+            this.label1.Size = new System.Drawing.Size(101, 12);
             this.label1.TabIndex = 2;
             this.label1.Text = "Move to Address";
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(12, 102);
+            this.label2.Location = new System.Drawing.Point(14, 94);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(143, 13);
+            this.label2.Size = new System.Drawing.Size(168, 12);
             this.label2.TabIndex = 3;
             this.label2.Text = "Number of connected clients";
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(152, 102);
+            this.label3.Location = new System.Drawing.Point(177, 94);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(13, 13);
+            this.label3.Size = new System.Drawing.Size(11, 12);
             this.label3.TabIndex = 4;
             this.label3.Text = "0";
             // 
             // linkLabel1
             // 
             this.linkLabel1.AutoSize = true;
-            this.linkLabel1.Location = new System.Drawing.Point(87, 54);
+            this.linkLabel1.Location = new System.Drawing.Point(101, 50);
             this.linkLabel1.Name = "linkLabel1";
-            this.linkLabel1.Size = new System.Drawing.Size(165, 13);
+            this.linkLabel1.Size = new System.Drawing.Size(196, 12);
             this.linkLabel1.TabIndex = 6;
             this.linkLabel1.TabStop = true;
             this.linkLabel1.Text = "http://www.EasyModbusTCP.net";
@@ -442,7 +442,7 @@
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label4.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
-            this.label4.Location = new System.Drawing.Point(235, 29);
+            this.label4.Location = new System.Drawing.Point(274, 27);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(361, 20);
             this.label4.TabIndex = 7;
@@ -452,9 +452,10 @@
             // 
             this.listBox1.FormattingEnabled = true;
             this.listBox1.HorizontalScrollbar = true;
+            this.listBox1.ItemHeight = 12;
             this.listBox1.Location = new System.Drawing.Point(2, 3);
             this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(571, 160);
+            this.listBox1.Size = new System.Drawing.Size(665, 148);
             this.listBox1.TabIndex = 8;
             this.listBox1.MouseMove += new System.Windows.Forms.MouseEventHandler(this.listBox1_MouseMove);
             // 
@@ -462,7 +463,7 @@
             // 
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(15, 133);
+            this.label5.Location = new System.Drawing.Point(17, 123);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(121, 13);
             this.label5.TabIndex = 9;
@@ -471,11 +472,11 @@
             // textBox1
             // 
             this.textBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox1.Location = new System.Drawing.Point(15, 335);
+            this.textBox1.Location = new System.Drawing.Point(17, 309);
             this.textBox1.Multiline = true;
             this.textBox1.Name = "textBox1";
             this.textBox1.ReadOnly = true;
-            this.textBox1.Size = new System.Drawing.Size(314, 187);
+            this.textBox1.Size = new System.Drawing.Size(366, 173);
             this.textBox1.TabIndex = 10;
             this.textBox1.Text = resources.GetString("textBox1.Text");
             // 
@@ -484,9 +485,9 @@
             this.checkBox1.AutoSize = true;
             this.checkBox1.Checked = true;
             this.checkBox1.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBox1.Location = new System.Drawing.Point(428, 129);
+            this.checkBox1.Location = new System.Drawing.Point(499, 119);
             this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(158, 17);
+            this.checkBox1.Size = new System.Drawing.Size(183, 16);
             this.checkBox1.TabIndex = 11;
             this.checkBox1.Text = "Show Protocol Informations ";
             this.checkBox1.UseVisualStyleBackColor = true;
@@ -495,9 +496,9 @@
             // lblVersion
             // 
             this.lblVersion.AutoSize = true;
-            this.lblVersion.Location = new System.Drawing.Point(88, 71);
+            this.lblVersion.Location = new System.Drawing.Point(103, 66);
             this.lblVersion.Name = "lblVersion";
-            this.lblVersion.Size = new System.Drawing.Size(60, 13);
+            this.lblVersion.Size = new System.Drawing.Size(68, 12);
             this.lblVersion.TabIndex = 12;
             this.lblVersion.Text = "Version 2.6";
             // 
@@ -506,7 +507,7 @@
             this.checkBox2.AutoSize = true;
             this.checkBox2.Checked = true;
             this.checkBox2.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBox2.Location = new System.Drawing.Point(29, 371);
+            this.checkBox2.Location = new System.Drawing.Point(34, 342);
             this.checkBox2.Name = "checkBox2";
             this.checkBox2.Size = new System.Drawing.Size(15, 14);
             this.checkBox2.TabIndex = 13;
@@ -518,7 +519,7 @@
             this.checkBox3.AutoSize = true;
             this.checkBox3.Checked = true;
             this.checkBox3.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBox3.Location = new System.Drawing.Point(29, 387);
+            this.checkBox3.Location = new System.Drawing.Point(34, 357);
             this.checkBox3.Name = "checkBox3";
             this.checkBox3.Size = new System.Drawing.Size(15, 14);
             this.checkBox3.TabIndex = 14;
@@ -530,7 +531,7 @@
             this.checkBox4.AutoSize = true;
             this.checkBox4.Checked = true;
             this.checkBox4.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBox4.Location = new System.Drawing.Point(29, 403);
+            this.checkBox4.Location = new System.Drawing.Point(34, 372);
             this.checkBox4.Name = "checkBox4";
             this.checkBox4.Size = new System.Drawing.Size(15, 14);
             this.checkBox4.TabIndex = 15;
@@ -542,7 +543,7 @@
             this.checkBox5.AutoSize = true;
             this.checkBox5.Checked = true;
             this.checkBox5.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBox5.Location = new System.Drawing.Point(29, 419);
+            this.checkBox5.Location = new System.Drawing.Point(34, 387);
             this.checkBox5.Name = "checkBox5";
             this.checkBox5.Size = new System.Drawing.Size(15, 14);
             this.checkBox5.TabIndex = 16;
@@ -554,7 +555,7 @@
             this.checkBox6.AutoSize = true;
             this.checkBox6.Checked = true;
             this.checkBox6.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBox6.Location = new System.Drawing.Point(29, 435);
+            this.checkBox6.Location = new System.Drawing.Point(34, 402);
             this.checkBox6.Name = "checkBox6";
             this.checkBox6.Size = new System.Drawing.Size(15, 14);
             this.checkBox6.TabIndex = 17;
@@ -566,7 +567,7 @@
             this.checkBox7.AutoSize = true;
             this.checkBox7.Checked = true;
             this.checkBox7.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBox7.Location = new System.Drawing.Point(29, 451);
+            this.checkBox7.Location = new System.Drawing.Point(34, 416);
             this.checkBox7.Name = "checkBox7";
             this.checkBox7.Size = new System.Drawing.Size(15, 14);
             this.checkBox7.TabIndex = 18;
@@ -578,7 +579,7 @@
             this.checkBox8.AutoSize = true;
             this.checkBox8.Checked = true;
             this.checkBox8.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBox8.Location = new System.Drawing.Point(29, 483);
+            this.checkBox8.Location = new System.Drawing.Point(34, 446);
             this.checkBox8.Name = "checkBox8";
             this.checkBox8.Size = new System.Drawing.Size(15, 14);
             this.checkBox8.TabIndex = 20;
@@ -590,7 +591,7 @@
             this.checkBox9.AutoSize = true;
             this.checkBox9.Checked = true;
             this.checkBox9.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBox9.Location = new System.Drawing.Point(29, 467);
+            this.checkBox9.Location = new System.Drawing.Point(34, 431);
             this.checkBox9.Name = "checkBox9";
             this.checkBox9.Size = new System.Drawing.Size(15, 14);
             this.checkBox9.TabIndex = 19;
@@ -601,9 +602,9 @@
             // 
             this.btnProperties.BackgroundImage = global::EasyModbusServerSimulator.Properties.Resources.configure_2;
             this.btnProperties.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.btnProperties.Location = new System.Drawing.Point(532, 63);
+            this.btnProperties.Location = new System.Drawing.Point(621, 58);
             this.btnProperties.Name = "btnProperties";
-            this.btnProperties.Size = new System.Drawing.Size(54, 52);
+            this.btnProperties.Size = new System.Drawing.Size(63, 48);
             this.btnProperties.TabIndex = 21;
             this.btnProperties.UseVisualStyleBackColor = true;
             this.btnProperties.Click += new System.EventHandler(this.btnProperties_Click);
@@ -611,9 +612,9 @@
             // pictureBox1
             // 
             this.pictureBox1.Image = global::EasyModbusServerSimulator.Properties.Resources.PLCLoggerCompactBitmap;
-            this.pictureBox1.Location = new System.Drawing.Point(12, 32);
+            this.pictureBox1.Location = new System.Drawing.Point(14, 30);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(69, 67);
+            this.pictureBox1.Size = new System.Drawing.Size(80, 62);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
             this.pictureBox1.TabIndex = 5;
             this.pictureBox1.TabStop = false;
@@ -628,7 +629,7 @@
             this.checkBox10.AutoSize = true;
             this.checkBox10.Checked = true;
             this.checkBox10.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBox10.Location = new System.Drawing.Point(29, 499);
+            this.checkBox10.Location = new System.Drawing.Point(34, 461);
             this.checkBox10.Name = "checkBox10";
             this.checkBox10.Size = new System.Drawing.Size(15, 14);
             this.checkBox10.TabIndex = 22;
@@ -638,9 +639,9 @@
             // panel1
             // 
             this.panel1.Controls.Add(this.listBox1);
-            this.panel1.Location = new System.Drawing.Point(13, 149);
+            this.panel1.Location = new System.Drawing.Point(15, 138);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(573, 180);
+            this.panel1.Size = new System.Drawing.Size(668, 166);
             this.panel1.TabIndex = 23;
             this.panel1.MouseEnter += new System.EventHandler(this.panel1_MouseEnter);
             this.panel1.MouseLeave += new System.EventHandler(this.panel1_MouseLeave_1);
@@ -652,14 +653,15 @@
             this.infoToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(897, 24);
+            this.menuStrip1.Padding = new System.Windows.Forms.Padding(7, 2, 0, 2);
+            this.menuStrip1.Size = new System.Drawing.Size(1046, 24);
             this.menuStrip1.TabIndex = 24;
             this.menuStrip1.Text = "menuStrip1";
             // 
             // setupToolStripMenuItem
             // 
             this.setupToolStripMenuItem.Name = "setupToolStripMenuItem";
-            this.setupToolStripMenuItem.Size = new System.Drawing.Size(49, 20);
+            this.setupToolStripMenuItem.Size = new System.Drawing.Size(50, 20);
             this.setupToolStripMenuItem.Text = "Setup";
             this.setupToolStripMenuItem.Click += new System.EventHandler(this.setupToolStripMenuItem_Click);
             // 
@@ -672,9 +674,9 @@
             // 
             // MainForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(897, 570);
+            this.ClientSize = new System.Drawing.Size(1046, 526);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.checkBox10);
             this.Controls.Add(this.btnProperties);
@@ -703,7 +705,7 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "MainForm";
-            this.Text = "EasyModbusTCP Server Simulator";
+            this.Text = "EasyModbusTCP Server Simulator with Non-Sleep";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainForm_FormClosing);
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.MainForm_FormClosed);
             this.Load += new System.EventHandler(this.Form1_Load);
@@ -779,7 +781,7 @@
         private System.Windows.Forms.CheckBox checkBox10;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.ToolTip toolTip1;
-        private System.Diagnostics.PerformanceCounter performanceCounter1;
+        //private System.Diagnostics.PerformanceCounter performanceCounter1;
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem setupToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem infoToolStripMenuItem;

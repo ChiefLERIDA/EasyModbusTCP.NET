@@ -7,6 +7,7 @@ using System.Text;
 using System.Windows.Forms;
 using EasyModbus;
 using System.Reflection;
+using System.Threading;
 
 namespace EasyModbusServerSimulator
 {
@@ -37,7 +38,10 @@ namespace EasyModbusServerSimulator
             easyModbusTCPServer.CoilsChanged += new ModbusServer.CoilsChangedHandler(CoilsChanged);
             easyModbusTCPServer.HoldingRegistersChanged += new ModbusServer.HoldingRegistersChangedHandler(HoldingRegistersChanged);
             easyModbusTCPServer.NumberOfConnectedClientsChanged += new ModbusServer.NumberOfConnectedClientsChangedHandler(NumberOfConnectionsChanged);
-            easyModbusTCPServer.LogDataChanged += new ModbusServer.LogDataChangedHandler(LogDataChanged);    
+            easyModbusTCPServer.LogDataChanged += new ModbusServer.LogDataChangedHandler(LogDataChanged);
+
+            // PC Sleep 모드 방지
+            SleepModeHelper.Prevent();
         }
 
         private void tabControl1_SelectedIndexChanged(object sender, EventArgs e)

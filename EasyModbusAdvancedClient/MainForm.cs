@@ -124,15 +124,14 @@ namespace EasyModbusAdvancedClient
             {
             	TreeNode treeNode = null;
             	if (connectionProperty.ModbusTypeProperty == ModbusType.ModbusTCP) 
-            		treeNode = new TreeNode("Modbus-TCP Connection: " + connectionProperty.ConnectionName +"; IP-Address: "+connectionProperty.ModbusTCPAddress + "; Port: "+connectionProperty.Port);
+            		treeNode = new TreeNode("TCP: " + connectionProperty.ConnectionName +"; IP: "+connectionProperty.ModbusTCPAddress + "; Port: "+connectionProperty.Port);
             	else
-            		treeNode = new TreeNode("Modbus-RTU Connection: " + connectionProperty.ConnectionName +"; COM-Port: "+connectionProperty.ComPort);
+            		treeNode = new TreeNode("RTU: " + connectionProperty.ConnectionName +"; COM-Port: "+connectionProperty.ComPort);
             	foreach (FunctionProperties functionProperty in connectionProperty.FunctionPropertiesList)
             	{
             		treeNode.Nodes.Add("Function code: " + functionProperty.FunctionCode + "; Starting Address: "+functionProperty.StartingAdress + "; Quantity: "+functionProperty.Quantity);
             	}
             	rootNode.Nodes.Add(treeNode);
-            
             }
             treeView1.ExpandAll();
             this.UpdateDataGridViewItems();
@@ -799,6 +798,7 @@ namespace EasyModbusAdvancedClient
         void UpdateTextBoxReceive(object sender)
         {
             EasyModbus.ModbusClient modbusClient = (EasyModbus.ModbusClient)sender;
+
             if (textBox1.InvokeRequired)
             {
                 UpdateReceiveDataCallback d = new UpdateReceiveDataCallback(UpdateTextBoxReceive);
@@ -806,7 +806,7 @@ namespace EasyModbusAdvancedClient
             }
             else
             {
-                textBox1.AppendText("From: "+modbusClient.IPAddress.ToString()+ " Rx: ");
+                textBox1.AppendText("["+ modbusClient.IPAddress.ToString() + "/" + modbusClient.Port.ToString() + "][RECV]: ");
                 string hex = BitConverter.ToString(modbusClient.receiveData);
                 hex = hex.Replace("-", " ");
                 textBox1.AppendText(hex);
@@ -826,7 +826,7 @@ namespace EasyModbusAdvancedClient
             }
             else
             {
-                textBox1.AppendText("To: "+modbusClient.IPAddress.ToString() + "Tx: ");
+                textBox1.AppendText("[" + modbusClient.IPAddress.ToString() + "/" + modbusClient.Port.ToString() + "][SEND]: ");
                 string hex = BitConverter.ToString(modbusClient.sendData);
                 hex = hex.Replace("-", " ");
                 textBox1.AppendText(hex);

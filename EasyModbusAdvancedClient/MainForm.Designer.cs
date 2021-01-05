@@ -68,6 +68,11 @@ namespace EasyModbusAdvancedClient
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.dgvFunctionCode = new System.Windows.Forms.DataGridView();
+            this.Column5 = new System.Windows.Forms.DataGridViewComboBoxColumn();
+            this.Column1 = new System.Windows.Forms.DataGridViewComboBoxColumn();
+            this.Column4 = new System.Windows.Forms.DataGridViewComboBoxColumn();
+            this.Column3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.button1 = new System.Windows.Forms.Button();
@@ -89,11 +94,6 @@ namespace EasyModbusAdvancedClient
             this.stopAllJobsToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator6 = new System.Windows.Forms.ToolStripSeparator();
             this.updateAllValuessingleReadToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.Column5 = new System.Windows.Forms.DataGridViewComboBoxColumn();
-            this.Column1 = new System.Windows.Forms.DataGridViewComboBoxColumn();
-            this.Column4 = new System.Windows.Forms.DataGridViewComboBoxColumn();
-            this.Column3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -386,7 +386,7 @@ namespace EasyModbusAdvancedClient
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
             this.tabPage1.Size = new System.Drawing.Size(910, 622);
             this.tabPage1.TabIndex = 0;
-            this.tabPage1.Text = "Tag View";
+            this.tabPage1.Text = "FunctionCodes list";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
             // dgvFunctionCode
@@ -403,6 +403,44 @@ namespace EasyModbusAdvancedClient
             this.dgvFunctionCode.Size = new System.Drawing.Size(894, 611);
             this.dgvFunctionCode.TabIndex = 0;
             this.dgvFunctionCode.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DataGridView1CellClick);
+            // 
+            // Column5
+            // 
+            this.Column5.HeaderText = "Connection";
+            this.Column5.Name = "Column5";
+            this.Column5.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.Column5.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.Column5.Width = 150;
+            // 
+            // Column1
+            // 
+            this.Column1.HeaderText = "Address";
+            this.Column1.Name = "Column1";
+            this.Column1.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.Column1.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            // 
+            // Column4
+            // 
+            this.Column4.HeaderText = "Datatype";
+            this.Column4.Items.AddRange(new object[] {
+            "BOOL",
+            "INT16",
+            "UINT16"});
+            this.Column4.Name = "Column4";
+            this.Column4.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.Column4.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.Column4.Width = 150;
+            // 
+            // Column3
+            // 
+            this.Column3.HeaderText = "Value";
+            this.Column3.Name = "Column3";
+            // 
+            // Column2
+            // 
+            this.Column2.HeaderText = "Tag (optional)";
+            this.Column2.Name = "Column2";
+            this.Column2.Width = 200;
             // 
             // tabPage2
             // 
@@ -593,44 +631,6 @@ namespace EasyModbusAdvancedClient
             this.updateAllValuessingleReadToolStripMenuItem.Text = "Update all Values (single read)";
             this.updateAllValuessingleReadToolStripMenuItem.Visible = false;
             this.updateAllValuessingleReadToolStripMenuItem.Click += new System.EventHandler(this.UpdateAllValuesToolStripMenuItemClick);
-            // 
-            // Column5
-            // 
-            this.Column5.HeaderText = "Connection";
-            this.Column5.Name = "Column5";
-            this.Column5.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.Column5.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            this.Column5.Width = 150;
-            // 
-            // Column1
-            // 
-            this.Column1.HeaderText = "Address";
-            this.Column1.Name = "Column1";
-            this.Column1.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.Column1.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            // 
-            // Column4
-            // 
-            this.Column4.HeaderText = "Datatype";
-            this.Column4.Items.AddRange(new object[] {
-            "BOOL",
-            "INT16",
-            "UINT16"});
-            this.Column4.Name = "Column4";
-            this.Column4.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.Column4.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            this.Column4.Width = 150;
-            // 
-            // Column3
-            // 
-            this.Column3.HeaderText = "Value";
-            this.Column3.Name = "Column3";
-            // 
-            // Column2
-            // 
-            this.Column2.HeaderText = "Tag (optional)";
-            this.Column2.Name = "Column2";
-            this.Column2.Width = 200;
             // 
             // MainForm
             // 

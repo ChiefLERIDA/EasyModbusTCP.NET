@@ -148,6 +148,7 @@ namespace EasyModbus
                    
                 }
                 if (ConnectedChanged != null)
+                {
                     try
                     {
                         ConnectedChanged(this);
@@ -156,18 +157,23 @@ namespace EasyModbus
                     {
 
                     }
+                }
                 return;
             }
+
             if (!udpFlag)
             {
-                if (debug) StoreLogData.Instance.Store("Open TCP-Socket, IP-Address: " + ipAddress + ", Port: " + port, System.DateTime.Now);
+                if (debug)
+                    StoreLogData.Instance.Store("Open TCP-Socket, IP-Address: " + ipAddress + ", Port: " + port, System.DateTime.Now);
+                
                 tcpClient = new TcpClient();
                 var result = tcpClient.BeginConnect(ipAddress, port, null, null);
                 var success = result.AsyncWaitHandle.WaitOne(connectTimeout);
                 if (!success)
                 {
-                    throw new EasyModbus.Exceptions.ConnectionException("connection timed out");
+                    throw new EasyModbus.Exceptions.ConnectionException("Fail to Open IP/Port: " + ipAddress + "/" + port);
                 }
+
                 tcpClient.EndConnect(result);
 
                 //tcpClient = new TcpClient(ipAddress, port);
@@ -180,7 +186,9 @@ namespace EasyModbus
                 tcpClient = new TcpClient();
                 connected = true;
             }
+
             if (ConnectedChanged != null)
+            {
                 try
                 {
                     ConnectedChanged(this);
@@ -189,41 +197,10 @@ namespace EasyModbus
                 {
 
                 }
+            }
         }
 		
 		/// <summary>
-		/// Establish connection to Master device in case of Modbus TCP.
-		/// </summary>
-		public void Connect(string ipAddress, int port)
-		{
-            if (!udpFlag)
-            {
-                if (debug) StoreLogData.Instance.Store("Open TCP-Socket, IP-Address: " + ipAddress + ", Port: " + port, System.DateTime.Now);
-                tcpClient = new TcpClient();
-                var result = tcpClient.BeginConnect(ipAddress, port, null, null);
-                var success = result.AsyncWaitHandle.WaitOne(connectTimeout);
-                if (!success)
-                {
-                    throw new EasyModbus.Exceptions.ConnectionException("connection timed out");
-                }
-                tcpClient.EndConnect(result);
-
-                //tcpClient = new TcpClient(ipAddress, port);
-                stream = tcpClient.GetStream();
-                stream.ReadTimeout = connectTimeout;
-                connected = true;
-            }
-            else
-            {
-                tcpClient = new TcpClient();
-                connected = true;
-            }
-
-            if (ConnectedChanged != null)
-                ConnectedChanged(this);
-        }
-
-        /// <summary>
         /// Converts two ModbusRegisters to Float - Example: EasyModbus.ModbusClient.ConvertRegistersToFloat(modbusClient.ReadHoldingRegisters(19,2))
         /// </summary>
         /// <param name="registers">Two Register values received from Modbus</param>
