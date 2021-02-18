@@ -285,7 +285,7 @@ namespace EasyModbus
     public class ModbusServer
     {
         private bool debug = false;
-        Int32 port = 502;
+        Int32 port = 5003;
         ModbusProtocol receiveData;
         ModbusProtocol sendData =  new ModbusProtocol();
         Byte[] bytes = new Byte[2100];
@@ -384,8 +384,8 @@ namespace EasyModbus
             listenerThread.Join();
             try
             {
-
-                clientConnectionThread.Abort();
+                if (clientConnectionThread != null)
+                    clientConnectionThread.Abort();
             }
             catch (Exception) { }
         }

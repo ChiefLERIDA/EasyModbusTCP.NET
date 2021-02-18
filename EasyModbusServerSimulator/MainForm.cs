@@ -42,6 +42,9 @@ namespace EasyModbusServerSimulator
 
             // PC Sleep 모드 방지
             SleepModeHelper.Prevent();
+
+            // Holding registers...
+            tabControl1.SelectedIndex = 3; // 
         }
 
         private void tabControl1_SelectedIndexChanged(object sender, EventArgs e)

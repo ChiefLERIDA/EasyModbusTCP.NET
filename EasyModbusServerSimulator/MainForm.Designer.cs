@@ -82,7 +82,6 @@
             this.easyModbusTCPServerBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.checkBox10 = new System.Windows.Forms.CheckBox();
             this.panel1 = new System.Windows.Forms.Panel();
-            //this.performanceCounter1 = new System.Diagnostics.PerformanceCounter();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.setupToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -101,7 +100,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.form1BindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.easyModbusTCPServerBindingSource)).BeginInit();
             this.panel1.SuspendLayout();
-            //((System.ComponentModel.ISupportInitialize)(this.performanceCounter1)).BeginInit();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -162,12 +160,13 @@
             dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.ControlText;
             dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
             this.dataGridView1.DefaultCellStyle = dataGridViewCellStyle2;
-            this.dataGridView1.Location = new System.Drawing.Point(62, 2);
+            this.dataGridView1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dataGridView1.Location = new System.Drawing.Point(3, 3);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.ReadOnly = true;
             this.dataGridView1.RowHeadersVisible = false;
             this.dataGridView1.ShowEditingIcon = false;
-            this.dataGridView1.Size = new System.Drawing.Size(238, 437);
+            this.dataGridView1.Size = new System.Drawing.Size(344, 431);
             this.dataGridView1.TabIndex = 0;
             this.dataGridView1.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellDoubleClick);
             // 
@@ -361,7 +360,7 @@
             this.dataGridView4.ShowEditingIcon = false;
             this.dataGridView4.Size = new System.Drawing.Size(238, 437);
             this.dataGridView4.TabIndex = 1;
-            this.dataGridView4.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView4_CellValueChanged);
+            this.dataGridView4.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView3_CellValueChanged);
             this.dataGridView4.MouseEnter += new System.EventHandler(this.dataGridView4_MouseEnter);
             this.dataGridView4.MouseLeave += new System.EventHandler(this.dataGridView4_MouseLeave);
             // 
@@ -446,7 +445,7 @@
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(361, 20);
             this.label4.TabIndex = 7;
-            this.label4.Text = "...Modbus-TCP Server Listening (Port 502)...";
+            this.label4.Text = "...Modbus-TCP Server Listening (Port 5003)...";
             // 
             // listBox1
             // 
@@ -648,13 +647,14 @@
             // 
             // menuStrip1
             // 
+            this.menuStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.setupToolStripMenuItem,
             this.infoToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Padding = new System.Windows.Forms.Padding(7, 2, 0, 2);
-            this.menuStrip1.Size = new System.Drawing.Size(1046, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(1075, 24);
             this.menuStrip1.TabIndex = 24;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -676,7 +676,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1046, 526);
+            this.ClientSize = new System.Drawing.Size(1075, 526);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.checkBox10);
             this.Controls.Add(this.btnProperties);
@@ -724,7 +724,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.form1BindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.easyModbusTCPServerBindingSource)).EndInit();
             this.panel1.ResumeLayout(false);
-            //((System.ComponentModel.ISupportInitialize)(this.performanceCounter1)).EndInit();
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);

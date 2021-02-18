@@ -9,8 +9,8 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("EasyModbus")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyTitle("EasyModbus-ServoStar")]
+[assembly: AssemblyDescription("modified by ServoStar")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Stefan Rossmann Engineering Solutions")]
 [assembly: AssemblyProduct("EasyModbus")]
@@ -28,4 +28,4 @@ using System.Runtime.InteropServices;
 //
 // You can specify all the values or you can use the default the Revision and 
 // Build Numbers by using the '*' as shown below:
-[assembly: AssemblyVersion("5.5.0")]
+[assembly: AssemblyVersion("5.5.1")]

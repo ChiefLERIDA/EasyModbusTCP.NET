@@ -38,7 +38,7 @@
             // 
             this.propertyGrid1.Location = new System.Drawing.Point(3, 1);
             this.propertyGrid1.Name = "propertyGrid1";
-            this.propertyGrid1.Size = new System.Drawing.Size(280, 206);
+            this.propertyGrid1.Size = new System.Drawing.Size(327, 190);
             this.propertyGrid1.TabIndex = 0;
             this.propertyGrid1.Click += new System.EventHandler(this.propertyGrid1_Click);
             // 
@@ -46,9 +46,9 @@
             // 
             this.btnDischard.Image = ((System.Drawing.Image)(resources.GetObject("btnDischard.Image")));
             this.btnDischard.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.btnDischard.Location = new System.Drawing.Point(3, 228);
+            this.btnDischard.Location = new System.Drawing.Point(3, 210);
             this.btnDischard.Name = "btnDischard";
-            this.btnDischard.Size = new System.Drawing.Size(75, 56);
+            this.btnDischard.Size = new System.Drawing.Size(87, 52);
             this.btnDischard.TabIndex = 37;
             this.btnDischard.Text = "Dischard";
             this.btnDischard.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
@@ -59,9 +59,9 @@
             // 
             this.btnAccept.Image = ((System.Drawing.Image)(resources.GetObject("btnAccept.Image")));
             this.btnAccept.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.btnAccept.Location = new System.Drawing.Point(206, 228);
+            this.btnAccept.Location = new System.Drawing.Point(240, 210);
             this.btnAccept.Name = "btnAccept";
-            this.btnAccept.Size = new System.Drawing.Size(75, 56);
+            this.btnAccept.Size = new System.Drawing.Size(87, 52);
             this.btnAccept.TabIndex = 38;
             this.btnAccept.Text = "Accept";
             this.btnAccept.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
@@ -70,9 +70,9 @@
             // 
             // PropertyForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(284, 286);
+            this.ClientSize = new System.Drawing.Size(346, 296);
             this.ControlBox = false;
             this.Controls.Add(this.btnAccept);
             this.Controls.Add(this.btnDischard);

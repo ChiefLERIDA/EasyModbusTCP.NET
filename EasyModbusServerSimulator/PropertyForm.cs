@@ -29,6 +29,7 @@ namespace EasyModbusServerSimulator
         {
             settings.Port = settingsFromMainForm.Port;
             settings.ModbusTypeSelection = settingsFromMainForm.ModbusTypeSelection;
+
             if (SettingsChangedEvent != null)
                 SettingsChangedEvent();
             this.Close();
@@ -39,6 +40,7 @@ namespace EasyModbusServerSimulator
            
             if (SettingsChangedEvent != null)
                 SettingsChangedEvent();
+
             this.Close();
         }
 
