@@ -51,6 +51,9 @@ namespace EasyModbusClientExample
             //modbusClient.Baudrate = 9600;
             //modbusClient.UnitIdentifier = 2;
 
+
+            txtIpAddressInput.Text = modbusClient.IPAddress;
+
         }
 
         string receiveData = null;
@@ -438,10 +441,9 @@ namespace EasyModbusClientExample
             {
                 if (modbusClient.Connected)
                     modbusClient.Disconnect();
+
                 if (cbbSelctionModbus.SelectedIndex == 0)
                 {
-                   
-
                     modbusClient.IPAddress = txtIpAddressInput.Text;
                     modbusClient.Port = int.Parse(txtPortInput.Text);
                     modbusClient.SerialPort = null;

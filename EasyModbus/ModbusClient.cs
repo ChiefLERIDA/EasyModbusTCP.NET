@@ -61,8 +61,9 @@ namespace EasyModbus
         private Parity parity = Parity.Even;
         private StopBits stopBits = StopBits.One;
         private bool connected = false;
-        public int NumberOfRetries { get; set; } = 3;
+        public int NumberOfRetries { get; set; } = 30;
         private int countRetries = 0;
+        private int nHeartBeat = 0;
 
         public delegate void ReceiveDataChangedHandler(object sender);
         public event ReceiveDataChangedHandler ReceiveDataChanged;
@@ -171,6 +172,7 @@ namespace EasyModbus
                 var success = result.AsyncWaitHandle.WaitOne(connectTimeout);
                 if (!success)
                 {
+                    Logger.Error("Fail to Open IP/Port: " + ipAddress + "/" + port);
                     throw new EasyModbus.Exceptions.ConnectionException("Fail to Open IP/Port: " + ipAddress + "/" + port);
                 }
 
@@ -1279,11 +1281,12 @@ namespace EasyModbus
 				if (debug) StoreLogData.Instance.Store("ConnectionException Throwed", System.DateTime.Now);
                 throw new EasyModbus.Exceptions.ConnectionException("connection error");
 			}
-			if (startingAddress > 65535 | quantity >125)
+			if (startingAddress > 65535 | quantity > 125)
 			{
 				if (debug) StoreLogData.Instance.Store("ArgumentException Throwed", System.DateTime.Now);
 				throw new ArgumentException("Starting address must be 0 - 65535; quantity must be 0 - 125");
 			}
+
 			int[] response;
 			this.transactionIdentifier = BitConverter.GetBytes((uint)transactionIdentifierInternal);
 			this.protocolIdentifier = BitConverter.GetBytes((int) 0x0000);
@@ -1460,6 +1463,7 @@ namespace EasyModbus
 				
 				response[i] = BitConverter.ToInt16(data,(9+i*2));
 			}			
+
     		return (response);			
 		}
 
@@ -2888,6 +2892,16 @@ namespace EasyModbus
                 else
                     debug = false;
             }
+        }
+
+        public int CountHeartBeat()
+        {
+            nHeartBeat++;
+
+            if (nHeartBeat >= 1000)
+                nHeartBeat = 1;
+
+            return nHeartBeat;
         }
 
     }
