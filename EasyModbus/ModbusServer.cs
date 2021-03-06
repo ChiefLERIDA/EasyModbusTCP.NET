@@ -285,7 +285,7 @@ namespace EasyModbus
     public class ModbusServer
     {
         private bool debug = false;
-        Int32 port = 5003;
+        Int32 port = 503;
         ModbusProtocol receiveData;
         ModbusProtocol sendData =  new ModbusProtocol();
         Byte[] bytes = new Byte[2100];

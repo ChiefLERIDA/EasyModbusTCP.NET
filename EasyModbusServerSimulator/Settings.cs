@@ -8,7 +8,7 @@ namespace EasyModbusServerSimulator
     public class Settings
     {
         public enum ModbusType { ModbusTCP, ModbusUDP, ModbusRTU };
-        private int port = 5003;
+        private int port = 503;
         [DescriptionAttribute("Listenig Port for Modbus-TCP or Modbus-UDP Server")]
         [CategoryAttribute("ModbusProperties")]
         public int Port

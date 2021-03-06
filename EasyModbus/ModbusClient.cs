@@ -41,7 +41,7 @@ namespace EasyModbus
 		private TcpClient tcpClient;
         private string connectionName;
 		private string ipAddress = "127.0.0.1";
-		private int port = 502;
+		private int port = 503;
         private uint transactionIdentifierInternal = 0;
 		private byte [] transactionIdentifier = new byte[2];
 		private byte [] protocolIdentifier = new byte[2];
@@ -62,7 +62,7 @@ namespace EasyModbus
         private StopBits stopBits = StopBits.One;
         private bool connected = false;
         public int NumberOfRetries { get; set; } = 30;
-        private int countRetries = 0;
+        public int countRetries = 0;
         private int nHeartBeat = 0;
 
         public delegate void ReceiveDataChangedHandler(object sender);
@@ -2006,6 +2006,7 @@ namespace EasyModbus
             	if (debug) StoreLogData.Instance.Store("ModbusException Throwed", System.DateTime.Now);
                 throw new EasyModbus.Exceptions.ModbusException("error reading");
             }
+
             if (serialport != null)
             {
              crc = BitConverter.GetBytes(calculateCRC(data, 6, 6));           

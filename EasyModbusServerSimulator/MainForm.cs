@@ -15,6 +15,7 @@ namespace EasyModbusServerSimulator
     {
         Settings settings = new Settings();
         EasyModbus.ModbusServer easyModbusTCPServer;
+        EasyModbus.ModbusClient modbusClient;
         private UInt16 startingAddressDiscreteInputs = 1;
         private UInt16 startingAddressCoils = 1;
         private UInt16 startingAddressHoldingRegisters = 1;
@@ -24,6 +25,27 @@ namespace EasyModbusServerSimulator
         private bool preventInvokeCoils = false;
         private bool preventInvokeInputRegisters = false;
         private bool preventInvokeHoldingRegisters = false;
+
+        // Gantry Address
+        public const int GAN_HEARTBEAT = 0;
+        public const int GAN_TASK_ID_HI_READ = 1;
+        public const int GAN_TASK_ID_LO_READ = 2;
+        public const int GAN_CUR_X = 3;
+        public const int GAN_CUR_Y = 4;
+        public const int GAN_CUR_Z = 5;
+        public const int GAN_CUR_X_MM = 6;
+        public const int GAN_CUR_Y_MM = 7;
+        public const int GAN_CUR_Z_MM = 8;
+        public const int GAN_STATUS = 9;
+
+        public const int GAN_TASK_ID_HI_WRITE = 100;
+        public const int GAN_TASK_ID_LO_WRITE = 101;
+        public const int GAN_FROM_X = 102;
+        public const int GAN_FROM_Y = 103;
+        public const int GAN_FROM_Z = 104;
+        public const int GAN_TO_X = 105;
+        public const int GAN_TO_Y = 106;
+        public const int GAN_TO_Z = 107;
 
         public MainForm()
         {
@@ -40,6 +62,15 @@ namespace EasyModbusServerSimulator
             easyModbusTCPServer.NumberOfConnectedClientsChanged += new ModbusServer.NumberOfConnectedClientsChangedHandler(NumberOfConnectionsChanged);
             easyModbusTCPServer.LogDataChanged += new ModbusServer.LogDataChangedHandler(LogDataChanged);
 
+            if (modbusClient == null)
+                modbusClient = new EasyModbus.ModbusClient("127.0.0.1", 503); // Gantry connection information.
+
+            if (modbusClient.Connected == false)
+            {
+                modbusClient.ConnectionTimeout = 5000;
+                modbusClient.Connect();
+            }
+
             // PC Sleep 모드 방지
             SleepModeHelper.Prevent();
 
@@ -53,7 +84,7 @@ namespace EasyModbusServerSimulator
             {
                 numericUpDown1.Value = startingAddressDiscreteInputs;
                 dataGridView1.Rows.Clear();
-                for (int i = startingAddressDiscreteInputs; i < 20 + startingAddressDiscreteInputs; i++)
+                for (int i = startingAddressDiscreteInputs; i < 100 + startingAddressDiscreteInputs; i++)
                 {
                     dataGridView1.Rows.Add(i, easyModbusTCPServer.discreteInputs[i]);
                     
@@ -68,7 +99,7 @@ namespace EasyModbusServerSimulator
                 
                 numericUpDown1.Value = startingAddressCoils;
                 dataGridView2.Rows.Clear();
-                for (int i = startingAddressCoils; i < 20 + startingAddressCoils; i++)
+                for (int i = startingAddressCoils; i < 100 + startingAddressCoils; i++)
                 {
                     dataGridView2.Rows.Add(i, easyModbusTCPServer.coils[i]);
                     if (easyModbusTCPServer.coils[i])
@@ -81,15 +112,25 @@ namespace EasyModbusServerSimulator
             {
                 numericUpDown1.Value = startingAddressInputRegisters;
                 dataGridView3.Rows.Clear();
-                for (int i = startingAddressInputRegisters; i < 20 + startingAddressInputRegisters; i++)
+                for (int i = startingAddressInputRegisters; i < 100 + startingAddressInputRegisters; i++)
                     dataGridView3.Rows.Add(i, easyModbusTCPServer.inputRegisters[i]);
             }
+
+
             if (tabControl1.SelectedIndex == 3)
             {
-                numericUpDown1.Value = startingAddressHoldingRegisters;
+
+                //startingAddressHoldingRegisters = (ushort)Int32.Parse(tbReadStart.Text);
+                //numericUpDown1.Value = startingAddressHoldingRegisters;
+                
                 dataGridView4.Rows.Clear();
-                for (int i = startingAddressHoldingRegisters; i < 20 + startingAddressHoldingRegisters; i++)
-                    dataGridView4.Rows.Add(i, easyModbusTCPServer.holdingRegisters[i]);
+                int nRowCount = 0;
+                for (int i = (ushort)Int32.Parse(tbReadStart.Text); i < (Int32.Parse(tbReadStart.Text) + Int32.Parse(tbReadQty.Text)); i++)
+                    dataGridView4.Rows.Add("4x"+i.ToString(), easyModbusTCPServer.holdingRegisters[i]);
+
+                for (int i = (ushort)Int32.Parse(tbWriteStart.Text); i < (Int32.Parse(tbWriteStart.Text) + Int32.Parse(tbWriteQty.Text)); i++)
+                    dataGridView4.Rows.Add("4x" + i.ToString(), easyModbusTCPServer.holdingRegisters[i]);
+
             }
 
         }
@@ -109,6 +150,8 @@ namespace EasyModbusServerSimulator
                 startingAddressInputRegisters = (UInt16)numericUpDown1.Value;
             if (tabControl1.SelectedIndex == 3)
                 startingAddressHoldingRegisters = (UInt16)numericUpDown1.Value;
+
+
             tabControl1_SelectedIndexChanged(null, null);
 
         }
@@ -243,9 +286,12 @@ namespace EasyModbusServerSimulator
                 int rowindex = dataGridView4.SelectedCells[0].RowIndex;
                 try
                 {
-                    easyModbusTCPServer.holdingRegisters[rowindex + startingAddressHoldingRegisters] = Int16.Parse(dataGridView4.SelectedCells[0].Value.ToString());
+                    easyModbusTCPServer.holdingRegisters[rowindex + startingAddressHoldingRegisters] = Int16.Parse(dataGridView4.Rows[rowindex].Cells[1].Value.ToString()); 
                 }
-                catch (Exception) { }
+                catch (Exception) {
+
+                }
+
                 tabControl1_SelectedIndexChanged(null, null);
             }
         }
@@ -276,6 +322,7 @@ namespace EasyModbusServerSimulator
         private void vScrollBar4_ValueChanged(object sender, EventArgs e)
         {
             startingAddressHoldingRegisters = (ushort)vScrollBar4.Value;
+
             tabControl1_SelectedIndexChanged(null, null);
         }
 
@@ -462,7 +509,6 @@ namespace EasyModbusServerSimulator
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         
         {
-
             easyModbusTCPServer.StopListening();
             Environment.Exit(0);
         }
@@ -671,5 +717,69 @@ namespace EasyModbusServerSimulator
             propertryForm.Show();
         }
 
+        private void numericUpDown2_ValueChanged(object sender, EventArgs e)
+        {
+            dataGridView4.Rows[10].Selected = true;
+            DataGridViewRow row = dataGridView4.SelectedRows[0];
+            int nValue = 0;
+            if ((int)numericUpDown2.Value * 10 > 32767)
+                nValue = ((int)numericUpDown2.Value * 10) - 65535;
+            else
+                nValue = (int)numericUpDown2.Value * 10;
+
+            row.Cells[1].Value = nValue.ToString();
+
+            dataGridView4_CellValueChanged(null, null);
+        }
+
+        private void numericUpDown3_ValueChanged(object sender, EventArgs e)
+        {
+            dataGridView4.Rows[11].Selected = true;
+            DataGridViewRow row = dataGridView4.SelectedRows[0];
+            row.Cells[1].Value = ((int)numericUpDown3.Value * 10).ToString();
+            dataGridView4_CellValueChanged(null, null);
+        }
+
+        private void numericUpDown4_ValueChanged(object sender, EventArgs e)
+        {
+            dataGridView4.Rows[12].Selected = true;
+            DataGridViewRow row = dataGridView4.SelectedRows[0];
+            row.Cells[1].Value = ((int)numericUpDown4.Value * 10).ToString();
+            dataGridView4_CellValueChanged(null, null);
+        }
+
+        private void tbStartAddr_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                tabControl1_SelectedIndexChanged(sender, e);
+            }
+        }
+
+        private void tbReadQty_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                tabControl1_SelectedIndexChanged(sender, e);
+            }
+        }
+
+        private void tbWriteStart_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                tabControl1_SelectedIndexChanged(sender, e);
+            }
+        }
+
+        private void tbWriteQty_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                tabControl1_SelectedIndexChanged(sender, e);
+            }
+        }
+
+        
     }
 }
