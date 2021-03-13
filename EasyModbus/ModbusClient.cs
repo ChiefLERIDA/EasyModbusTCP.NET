@@ -489,6 +489,7 @@ namespace EasyModbus
         public static int[] ConvertLongToRegisters(Int64 longValue)
         {
             byte[] longBytes = BitConverter.GetBytes(longValue);
+
             byte[] highRegisterBytes =
             {
                 longBytes[6],

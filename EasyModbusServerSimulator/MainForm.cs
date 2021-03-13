@@ -15,7 +15,6 @@ namespace EasyModbusServerSimulator
     {
         Settings settings = new Settings();
         EasyModbus.ModbusServer easyModbusTCPServer;
-        EasyModbus.ModbusClient modbusClient;
         private UInt16 startingAddressDiscreteInputs = 1;
         private UInt16 startingAddressCoils = 1;
         private UInt16 startingAddressHoldingRegisters = 1;
@@ -27,59 +26,70 @@ namespace EasyModbusServerSimulator
         private bool preventInvokeHoldingRegisters = false;
 
         // Gantry Address
+        // Write 4x1 ~
         public const int GAN_HEARTBEAT = 0;
-        public const int GAN_TASK_ID_HI_READ = 1;
-        public const int GAN_TASK_ID_LO_READ = 2;
-        public const int GAN_CUR_X = 3;
-        public const int GAN_CUR_Y = 4;
-        public const int GAN_CUR_Z = 5;
-        public const int GAN_CUR_X_MM = 6;
-        public const int GAN_CUR_Y_MM = 7;
-        public const int GAN_CUR_Z_MM = 8;
-        public const int GAN_STATUS = 9;
+        public const int GAN_CONTROLWORD = 1;
+        public const int GAN_TASK_ID_LO_WR = 2;
+        public const int GAN_TASK_ID_HI_WR = 3;
+        public const int GAN_FROM_X = 4;
+        public const int GAN_FROM_Y = 5;
+        public const int GAN_FROM_Z = 6;
+        public const int GAN_TO_X = 7;
+        public const int GAN_TO_Y = 8;
+        public const int GAN_TO_Z = 9;
 
-        public const int GAN_TASK_ID_HI_WRITE = 100;
-        public const int GAN_TASK_ID_LO_WRITE = 101;
-        public const int GAN_FROM_X = 102;
-        public const int GAN_FROM_Y = 103;
-        public const int GAN_FROM_Z = 104;
-        public const int GAN_TO_X = 105;
-        public const int GAN_TO_Y = 106;
-        public const int GAN_TO_Z = 107;
+        public const int GAN_BarCode_Lo_Lo = 29; // 4x30 Stack_BarCode_Response_Lo	바코드 데이터 응답_LO , 실제데이터 , (WMS에서 Gantry로 결과 송신)
+        public const int GAN_BarCode_Lo_Hi = 30; // 4x31 Stack_BarCode_Response_Hi	바코드 데이터 응답_HI , 실제데이터
+        public const int GAN_BarCode_Hi_Lo = 31;
+        public const int GAN_BarCode_Hi_Hi = 32;
+
+        // Read 4x201
+        public const int GAN_HEARTBEAT_RX = 200;
+        public const int GAN_STATUSWORD = 201;
+        public const int GAN_TASK_ID_HI_RE = 202;
+        public const int GAN_TASK_ID_LO_RE = 203;
+        public const int GAN_CUR_X = 204;
+        public const int GAN_CUR_Y = 205;
+        public const int GAN_CUR_Z = 206;
+        public const int GAN_STATUS = 207;
+
+        // Server 는 PLC 형식이므로 Lo-Hi를 뒤집어 준다.
+        public const int GAN_CUR_X_MM_Lo = 219; // GAN_CUR_X_MM_LO	"철통 현재 위치 X(행, 0 ~ 35,550 mm) ※ Gantry 가동 범위 확인 필요, Real_32bit (2word) 로 합쳐서 표현하세요~! , 
+        public const int GAN_CUR_X_MM_Hi = 220; // 위의 모드버스 송신 인터벌주기로 빨리해야 거리값을 조밀하게 확인할수 있을꺼예요."
+        
+        public const int GAN_CUR_Y_MM_Lo = 221;
+        public const int GAN_CUR_Y_MM_Hi = 222;
+        public const int GAN_CUR_Z_MM_Lo = 223;
+        public const int GAN_CUR_Z_MM_Hi = 224;
 
         public MainForm()
         {
             InitializeComponent();
             Assembly.GetExecutingAssembly().GetName().Version.ToString();
             lblVersion.Text = "Version: " + Assembly.GetExecutingAssembly().GetName().Version.Major.ToString() +"."+ Assembly.GetExecutingAssembly().GetName().Version.Minor.ToString();
-            easyModbusTCPServer = new EasyModbus.ModbusServer();
-            
-            easyModbusTCPServer.Listen();
 
-            
-            easyModbusTCPServer.CoilsChanged += new ModbusServer.CoilsChangedHandler(CoilsChanged);
-            easyModbusTCPServer.HoldingRegistersChanged += new ModbusServer.HoldingRegistersChangedHandler(HoldingRegistersChanged);
-            easyModbusTCPServer.NumberOfConnectedClientsChanged += new ModbusServer.NumberOfConnectedClientsChangedHandler(NumberOfConnectionsChanged);
-            easyModbusTCPServer.LogDataChanged += new ModbusServer.LogDataChangedHandler(LogDataChanged);
+            btnSTOP.Enabled = false;
 
-            if (modbusClient == null)
-                modbusClient = new EasyModbus.ModbusClient("127.0.0.1", 503); // Gantry connection information.
 
-            if (modbusClient.Connected == false)
-            {
-                modbusClient.ConnectionTimeout = 5000;
-                modbusClient.Connect();
-            }
 
             // PC Sleep 모드 방지
             SleepModeHelper.Prevent();
 
             // Holding registers...
-            tabControl1.SelectedIndex = 3; // 
+            tabControl1.SelectedIndex = 3; //
+
+            tbReadStart.Text = Properties.Settings.Default.ReadStart.ToString();
+            tbReadQty.Text = Properties.Settings.Default.ReadQty.ToString();
+
+            tbWriteStart.Text = Properties.Settings.Default.WriteStart.ToString();
+            tbWriteQty.Text = Properties.Settings.Default.WriteQty.ToString();
         }
 
         private void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
         {
+            if (easyModbusTCPServer == null)
+                return;
+
             if (tabControl1.SelectedIndex == 0)
             {
                 numericUpDown1.Value = startingAddressDiscreteInputs;
@@ -122,15 +132,27 @@ namespace EasyModbusServerSimulator
 
                 //startingAddressHoldingRegisters = (ushort)Int32.Parse(tbReadStart.Text);
                 //numericUpDown1.Value = startingAddressHoldingRegisters;
+
+                //
+                if (easyModbusTCPServer != null && easyModbusTCPServer.Port == 503) // Gantry Test 용
+                {
+                    easyModbusTCPServer.holdingRegisters[GAN_TASK_ID_HI_RE+1] = easyModbusTCPServer.holdingRegisters[GAN_TASK_ID_HI_WR+1];
+                    easyModbusTCPServer.holdingRegisters[GAN_TASK_ID_LO_RE+1] = easyModbusTCPServer.holdingRegisters[GAN_TASK_ID_LO_WR+1];
+                }
+
                 
                 dataGridView4.Rows.Clear();
                 int nRowCount = 0;
                 for (int i = (ushort)Int32.Parse(tbReadStart.Text); i < (Int32.Parse(tbReadStart.Text) + Int32.Parse(tbReadQty.Text)); i++)
                     dataGridView4.Rows.Add("4x"+i.ToString(), easyModbusTCPServer.holdingRegisters[i]);
 
+                //tbWriteStart.Text = (Int32.Parse(tbReadStart.Text) + Int32.Parse(tbReadQty.Text)).ToString();
+
                 for (int i = (ushort)Int32.Parse(tbWriteStart.Text); i < (Int32.Parse(tbWriteStart.Text) + Int32.Parse(tbWriteQty.Text)); i++)
                     dataGridView4.Rows.Add("4x" + i.ToString(), easyModbusTCPServer.holdingRegisters[i]);
 
+
+                dataGridView4.Update();
             }
 
         }
@@ -286,7 +308,10 @@ namespace EasyModbusServerSimulator
                 int rowindex = dataGridView4.SelectedCells[0].RowIndex;
                 try
                 {
-                    easyModbusTCPServer.holdingRegisters[rowindex + startingAddressHoldingRegisters] = Int16.Parse(dataGridView4.Rows[rowindex].Cells[1].Value.ToString()); 
+                    string strAddr = dataGridView4.Rows[rowindex].Cells[0].Value.ToString();
+                    int nAddr = Int32.Parse(strAddr.Replace("4x",""));
+
+                    easyModbusTCPServer.holdingRegisters[nAddr] = Int16.Parse(dataGridView4.Rows[rowindex].Cells[1].Value.ToString()); 
                 }
                 catch (Exception) {
 
@@ -509,7 +534,17 @@ namespace EasyModbusServerSimulator
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         
         {
-            easyModbusTCPServer.StopListening();
+            Properties.Settings.Default.ServerPort = settings.Port;
+
+            Properties.Settings.Default.ReadStart = Int32.Parse(tbReadStart.Text);
+            Properties.Settings.Default.ReadQty = Int32.Parse(tbReadQty.Text);
+
+            Properties.Settings.Default.WriteStart = Int32.Parse(tbWriteStart.Text);
+            Properties.Settings.Default.WriteQty = Int32.Parse(tbWriteQty.Text);
+
+            if (easyModbusTCPServer != null)
+                easyModbusTCPServer.StopListening();
+            
             Environment.Exit(0);
         }
 
@@ -595,8 +630,13 @@ namespace EasyModbusServerSimulator
 
         private void btnProperties_Click(object sender, EventArgs e)
         {
-            settings.ComPort = easyModbusTCPServer.SerialPort;
-            settings.SlaveAddress = easyModbusTCPServer.UnitIdentifier;
+            if (easyModbusTCPServer != null)
+            {
+
+                settings.ComPort = easyModbusTCPServer.SerialPort;
+                settings.SlaveAddress = easyModbusTCPServer.UnitIdentifier;
+            }
+
             PropertyForm propertryForm = new PropertyForm(settings);
             propertryForm.SettingsChangedEvent += new PropertyForm.settingsChangedEvent(SettingsChanged);
             propertryForm.Show();
@@ -604,31 +644,50 @@ namespace EasyModbusServerSimulator
 
         private void SettingsChanged()
         {
-            easyModbusTCPServer.StopListening();
-            easyModbusTCPServer.Port = settings.Port;
-            easyModbusTCPServer.SerialPort = settings.ComPort;
-            easyModbusTCPServer.UnitIdentifier = settings.SlaveAddress;
+            //easyModbusTCPServer.StopListening();
+            if (easyModbusTCPServer != null)
+            {
+                easyModbusTCPServer.Port = settings.Port;
+                easyModbusTCPServer.SerialPort = settings.ComPort;
+                easyModbusTCPServer.UnitIdentifier = settings.SlaveAddress;
+            }
+
             if (settings.ModbusTypeSelection == Settings.ModbusType.ModbusUDP)
             {
                 easyModbusTCPServer.UDPFlag = true;
                 easyModbusTCPServer.SerialFlag = false;
-                label4.Text = "...Modbus-UDP Server Listening (Port " + settings.Port + ")...";
+                lbInfo.Text = "...Modbus-UDP Server Listening (Port " + settings.Port + ")...";
             }
             else if (settings.ModbusTypeSelection == Settings.ModbusType.ModbusTCP)
             {
-                easyModbusTCPServer.UDPFlag = false;
-                easyModbusTCPServer.SerialFlag = false;
-                label4.Text = "...Modbus-TCP Server Listening (Port " + settings.Port + ")...";
+                if (easyModbusTCPServer != null)
+                {
+                    easyModbusTCPServer.UDPFlag = false;
+                    easyModbusTCPServer.SerialFlag = false;
+                }
+
+                if (settings.Port == 503)
+                    lbInfo.Text = "...Modbus-TCP Server Listening (Port " + settings.Port + "-Gantry)...";
+                else if (settings.Port == 502)
+                    lbInfo.Text = "...Modbus-TCP Server Listening (Port " + settings.Port + "-PLC)...";
+
+
             }
             else if (settings.ModbusTypeSelection == Settings.ModbusType.ModbusRTU)
             {
                 easyModbusTCPServer.UDPFlag = false;
                 easyModbusTCPServer.SerialFlag = true;
-                label4.Text = "...Modbus-RTU Client Listening (Com-Port: " + settings.ComPort + ")...";
+                lbInfo.Text = "...Modbus-RTU Client Listening (Com-Port: " + settings.ComPort + ")...";
             }
-            easyModbusTCPServer.PortChanged = true;
-            
-            easyModbusTCPServer.Listen();
+
+            Properties.Settings.Default.ServerPort = settings.Port;
+
+            if (easyModbusTCPServer != null)
+            {
+                easyModbusTCPServer.PortChanged = true;
+
+                easyModbusTCPServer.Listen();
+            }
         }
 		void EasyModbusTCPServerBindingSourceCurrentChanged(object sender, EventArgs e)
 		{
@@ -719,25 +778,52 @@ namespace EasyModbusServerSimulator
 
         private void numericUpDown2_ValueChanged(object sender, EventArgs e)
         {
-            dataGridView4.Rows[10].Selected = true;
-            DataGridViewRow row = dataGridView4.SelectedRows[0];
-            int nValue = 0;
-            if ((int)numericUpDown2.Value * 10 > 32767)
-                nValue = ((int)numericUpDown2.Value * 10) - 65535;
-            else
-                nValue = (int)numericUpDown2.Value * 10;
+            //int[] nPosX = new int[2];
 
-            row.Cells[1].Value = nValue.ToString();
+            int[] nPosX = EasyModbus.ModbusClient.ConvertIntToRegisters(Int32.Parse(numericUpDown2.Value.ToString()));
 
-            dataGridView4_CellValueChanged(null, null);
+            for (int i = 0; i < dataGridView4.Rows.Count; i++)
+            {
+                if (Int32.Parse(dataGridView4.Rows[i].Cells[0].Value.ToString().Replace("4x", "")) == GAN_CUR_X_MM_Lo+1)
+                //if (Int32.Parse(dataGridView4.Rows[i].Cells[0].Value.ToString().Replace("4x", "")) == GAN_CUR_X_MM_Hi + 1)
+                {
+                    dataGridView4.Rows[i].Selected = true;
+                    dataGridView4.Rows[i+1].Selected = true;
+                    DataGridViewRow row_Lo = dataGridView4.SelectedRows[0];
+                    DataGridViewRow row_Hi = dataGridView4.SelectedRows[1];
+
+
+                    row_Lo.Cells[1].Value = nPosX[0].ToString();
+                    row_Hi.Cells[1].Value = nPosX[1].ToString();
+
+                    dataGridView4_CellValueChanged(null, null);
+
+                }
+            }
         }
 
         private void numericUpDown3_ValueChanged(object sender, EventArgs e)
         {
-            dataGridView4.Rows[11].Selected = true;
-            DataGridViewRow row = dataGridView4.SelectedRows[0];
-            row.Cells[1].Value = ((int)numericUpDown3.Value * 10).ToString();
-            dataGridView4_CellValueChanged(null, null);
+            int[] nPosY = EasyModbus.ModbusClient.ConvertIntToRegisters(Int32.Parse(numericUpDown3.Value.ToString()));
+
+            for (int i = 0; i < dataGridView4.Rows.Count; i++)
+            {
+                if (Int32.Parse(dataGridView4.Rows[i].Cells[0].Value.ToString().Replace("4x", "")) == GAN_CUR_Y_MM_Lo + 1)
+                //if (Int32.Parse(dataGridView4.Rows[i].Cells[0].Value.ToString().Replace("4x", "")) == GAN_CUR_Y_MM_Hi + 1)
+                {
+                    dataGridView4.Rows[i].Selected = true;
+                    dataGridView4.Rows[i + 1].Selected = true;
+                    DataGridViewRow row_Lo = dataGridView4.SelectedRows[0];
+                    DataGridViewRow row_Hi = dataGridView4.SelectedRows[1];
+
+
+                    row_Lo.Cells[1].Value = nPosY[0].ToString();
+                    row_Hi.Cells[1].Value = nPosY[1].ToString();
+
+                    dataGridView4_CellValueChanged(null, null);
+
+                }
+            }
         }
 
         private void numericUpDown4_ValueChanged(object sender, EventArgs e)
@@ -780,6 +866,41 @@ namespace EasyModbusServerSimulator
             }
         }
 
-        
+        private void btnStart_Click(object sender, EventArgs e)
+        {
+            if (easyModbusTCPServer == null)
+                easyModbusTCPServer = new EasyModbus.ModbusServer();
+
+            easyModbusTCPServer.Port = Properties.Settings.Default.ServerPort;
+            
+
+            easyModbusTCPServer.Listen();
+
+            easyModbusTCPServer.CoilsChanged += new ModbusServer.CoilsChangedHandler(CoilsChanged);
+            easyModbusTCPServer.HoldingRegistersChanged += new ModbusServer.HoldingRegistersChangedHandler(HoldingRegistersChanged);
+            easyModbusTCPServer.NumberOfConnectedClientsChanged += new ModbusServer.NumberOfConnectedClientsChangedHandler(NumberOfConnectionsChanged);
+            easyModbusTCPServer.LogDataChanged += new ModbusServer.LogDataChangedHandler(LogDataChanged);
+
+            btnProperties.Enabled = false;
+            btnStart.Enabled = false;
+            btnSTOP.Enabled = true;
+
+            dataGridView4.Update();
+        }
+
+        private void btnSTOP_Click(object sender, EventArgs e)
+        {
+
+            easyModbusTCPServer.CoilsChanged -= new ModbusServer.CoilsChangedHandler(CoilsChanged);
+            easyModbusTCPServer.HoldingRegistersChanged -= new ModbusServer.HoldingRegistersChangedHandler(HoldingRegistersChanged);
+            easyModbusTCPServer.NumberOfConnectedClientsChanged -= new ModbusServer.NumberOfConnectedClientsChangedHandler(NumberOfConnectionsChanged);
+            easyModbusTCPServer.LogDataChanged -= new ModbusServer.LogDataChangedHandler(LogDataChanged);
+
+            easyModbusTCPServer.StopListening();
+
+            btnProperties.Enabled = true;
+            btnStart.Enabled = true;
+            btnSTOP.Enabled = false;
+        }
     }
 }

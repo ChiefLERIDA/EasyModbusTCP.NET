@@ -29,12 +29,12 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle20 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle19 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle22 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle21 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle23 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle24 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
@@ -62,7 +62,7 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.linkLabel1 = new System.Windows.Forms.LinkLabel();
-            this.label4 = new System.Windows.Forms.Label();
+            this.lbInfo = new System.Windows.Forms.Label();
             this.listBox1 = new System.Windows.Forms.ListBox();
             this.label5 = new System.Windows.Forms.Label();
             this.textBox1 = new System.Windows.Forms.TextBox();
@@ -100,6 +100,11 @@
             this.label9 = new System.Windows.Forms.Label();
             this.tbWriteStart = new System.Windows.Forms.TextBox();
             this.tbWriteQty = new System.Windows.Forms.TextBox();
+            this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.btnSTOP = new System.Windows.Forms.Button();
+            this.btnStart = new System.Windows.Forms.Button();
+            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.panel2 = new System.Windows.Forms.Panel();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
@@ -118,6 +123,12 @@
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown4)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
+            this.splitContainer1.Panel1.SuspendLayout();
+            this.splitContainer1.Panel2.SuspendLayout();
+            this.splitContainer1.SuspendLayout();
+            this.tableLayoutPanel1.SuspendLayout();
+            this.panel2.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabControl1
@@ -126,10 +137,11 @@
             this.tabControl1.Controls.Add(this.tabPage2);
             this.tabControl1.Controls.Add(this.tabPage3);
             this.tabControl1.Controls.Add(this.tabPage4);
-            this.tabControl1.Location = new System.Drawing.Point(686, 58);
+            this.tabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tabControl1.Location = new System.Drawing.Point(3, 103);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(358, 463);
+            this.tabControl1.Size = new System.Drawing.Size(401, 652);
             this.tabControl1.TabIndex = 0;
             this.tabControl1.SelectedIndexChanged += new System.EventHandler(this.tabControl1_SelectedIndexChanged);
             this.tabControl1.MouseEnter += new System.EventHandler(this.tabControl1_MouseEnter);
@@ -142,7 +154,7 @@
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(350, 437);
+            this.tabPage1.Size = new System.Drawing.Size(393, 626);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Discrete Inputs";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -150,13 +162,14 @@
             // vScrollBar1
             // 
             this.vScrollBar1.Cursor = System.Windows.Forms.Cursors.Default;
+            this.vScrollBar1.Dock = System.Windows.Forms.DockStyle.Right;
             this.vScrollBar1.LargeChange = 20;
-            this.vScrollBar1.Location = new System.Drawing.Point(308, 2);
+            this.vScrollBar1.Location = new System.Drawing.Point(369, 3);
             this.vScrollBar1.Maximum = 65534;
             this.vScrollBar1.Minimum = 1;
             this.vScrollBar1.Name = "vScrollBar1";
             this.vScrollBar1.Padding = new System.Windows.Forms.Padding(1);
-            this.vScrollBar1.Size = new System.Drawing.Size(21, 437);
+            this.vScrollBar1.Size = new System.Drawing.Size(21, 620);
             this.vScrollBar1.TabIndex = 1;
             this.vScrollBar1.Value = 1;
             this.vScrollBar1.ValueChanged += new System.EventHandler(this.vScrollBar1_ValueChanged);
@@ -169,21 +182,21 @@
             this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Column1,
             this.Value});
-            dataGridViewCellStyle20.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle20.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle20.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle20.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle20.SelectionBackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle20.SelectionForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle20.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dataGridView1.DefaultCellStyle = dataGridViewCellStyle20;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dataGridView1.DefaultCellStyle = dataGridViewCellStyle2;
             this.dataGridView1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dataGridView1.Location = new System.Drawing.Point(3, 3);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.ReadOnly = true;
             this.dataGridView1.RowHeadersVisible = false;
             this.dataGridView1.ShowEditingIcon = false;
-            this.dataGridView1.Size = new System.Drawing.Size(344, 431);
+            this.dataGridView1.Size = new System.Drawing.Size(387, 620);
             this.dataGridView1.TabIndex = 0;
             this.dataGridView1.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellDoubleClick);
             // 
@@ -195,8 +208,8 @@
             // 
             // Value
             // 
-            dataGridViewCellStyle19.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Value.DefaultCellStyle = dataGridViewCellStyle19;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Value.DefaultCellStyle = dataGridViewCellStyle1;
             this.Value.HeaderText = "Value";
             this.Value.Name = "Value";
             this.Value.ReadOnly = true;
@@ -208,7 +221,7 @@
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(350, 437);
+            this.tabPage2.Size = new System.Drawing.Size(393, 626);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Coils";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -235,14 +248,14 @@
             this.dataGridView2.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.dataGridViewTextBoxColumn1,
             this.dataGridViewTextBoxColumn2});
-            dataGridViewCellStyle22.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle22.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle22.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle22.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle22.SelectionBackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle22.SelectionForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle22.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dataGridView2.DefaultCellStyle = dataGridViewCellStyle22;
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dataGridView2.DefaultCellStyle = dataGridViewCellStyle4;
             this.dataGridView2.Location = new System.Drawing.Point(62, 2);
             this.dataGridView2.Name = "dataGridView2";
             this.dataGridView2.ReadOnly = true;
@@ -262,8 +275,8 @@
             // 
             // dataGridViewTextBoxColumn2
             // 
-            dataGridViewCellStyle21.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.dataGridViewTextBoxColumn2.DefaultCellStyle = dataGridViewCellStyle21;
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.dataGridViewTextBoxColumn2.DefaultCellStyle = dataGridViewCellStyle3;
             this.dataGridViewTextBoxColumn2.HeaderText = "Value";
             this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
             this.dataGridViewTextBoxColumn2.ReadOnly = true;
@@ -275,7 +288,7 @@
             this.tabPage3.Location = new System.Drawing.Point(4, 22);
             this.tabPage3.Name = "tabPage3";
             this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage3.Size = new System.Drawing.Size(350, 437);
+            this.tabPage3.Size = new System.Drawing.Size(393, 626);
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "Input Registers";
             this.tabPage3.UseVisualStyleBackColor = true;
@@ -302,14 +315,14 @@
             this.dataGridView3.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.dataGridViewTextBoxColumn3,
             this.dataGridViewTextBoxColumn4});
-            dataGridViewCellStyle23.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle23.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle23.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle23.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle23.SelectionBackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle23.SelectionForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle23.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dataGridView3.DefaultCellStyle = dataGridViewCellStyle23;
+            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle5.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dataGridView3.DefaultCellStyle = dataGridViewCellStyle5;
             this.dataGridView3.Location = new System.Drawing.Point(62, 2);
             this.dataGridView3.Name = "dataGridView3";
             this.dataGridView3.RowHeadersVisible = false;
@@ -336,7 +349,7 @@
             this.tabPage4.Location = new System.Drawing.Point(4, 22);
             this.tabPage4.Name = "tabPage4";
             this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage4.Size = new System.Drawing.Size(350, 437);
+            this.tabPage4.Size = new System.Drawing.Size(393, 626);
             this.tabPage4.TabIndex = 3;
             this.tabPage4.Text = "Holding Registers";
             this.tabPage4.UseVisualStyleBackColor = true;
@@ -344,13 +357,14 @@
             // vScrollBar4
             // 
             this.vScrollBar4.Cursor = System.Windows.Forms.Cursors.Default;
+            this.vScrollBar4.Dock = System.Windows.Forms.DockStyle.Right;
             this.vScrollBar4.LargeChange = 20;
-            this.vScrollBar4.Location = new System.Drawing.Point(308, 2);
+            this.vScrollBar4.Location = new System.Drawing.Point(369, 3);
             this.vScrollBar4.Maximum = 65534;
             this.vScrollBar4.Minimum = 1;
             this.vScrollBar4.Name = "vScrollBar4";
             this.vScrollBar4.Padding = new System.Windows.Forms.Padding(1);
-            this.vScrollBar4.Size = new System.Drawing.Size(21, 437);
+            this.vScrollBar4.Size = new System.Drawing.Size(21, 620);
             this.vScrollBar4.TabIndex = 2;
             this.vScrollBar4.Value = 1;
             this.vScrollBar4.ValueChanged += new System.EventHandler(this.vScrollBar4_ValueChanged);
@@ -363,20 +377,20 @@
             this.dataGridView4.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.dataGridViewTextBoxColumn5,
             this.dataGridViewTextBoxColumn6});
-            dataGridViewCellStyle24.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle24.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle24.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle24.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle24.SelectionBackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle24.SelectionForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle24.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dataGridView4.DefaultCellStyle = dataGridViewCellStyle24;
+            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle6.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dataGridView4.DefaultCellStyle = dataGridViewCellStyle6;
             this.dataGridView4.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dataGridView4.Location = new System.Drawing.Point(3, 3);
             this.dataGridView4.Name = "dataGridView4";
             this.dataGridView4.RowHeadersVisible = false;
             this.dataGridView4.ShowEditingIcon = false;
-            this.dataGridView4.Size = new System.Drawing.Size(344, 431);
+            this.dataGridView4.Size = new System.Drawing.Size(387, 620);
             this.dataGridView4.TabIndex = 1;
             this.dataGridView4.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView4_CellValueChanged);
             this.dataGridView4.MouseEnter += new System.EventHandler(this.dataGridView4_MouseEnter);
@@ -390,12 +404,13 @@
             // 
             // dataGridViewTextBoxColumn6
             // 
+            this.dataGridViewTextBoxColumn6.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
             this.dataGridViewTextBoxColumn6.HeaderText = "Value";
             this.dataGridViewTextBoxColumn6.Name = "dataGridViewTextBoxColumn6";
             // 
             // numericUpDown1
             // 
-            this.numericUpDown1.Location = new System.Drawing.Point(889, 34);
+            this.numericUpDown1.Location = new System.Drawing.Point(124, 10);
             this.numericUpDown1.Maximum = new decimal(new int[] {
             65515,
             0,
@@ -419,7 +434,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(780, 38);
+            this.label1.Location = new System.Drawing.Point(15, 14);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(101, 12);
             this.label1.TabIndex = 2;
@@ -428,7 +443,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(14, 94);
+            this.label2.Location = new System.Drawing.Point(11, 69);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(168, 12);
             this.label2.TabIndex = 3;
@@ -437,7 +452,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(177, 94);
+            this.label3.Location = new System.Drawing.Point(174, 69);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(11, 12);
             this.label3.TabIndex = 4;
@@ -446,7 +461,7 @@
             // linkLabel1
             // 
             this.linkLabel1.AutoSize = true;
-            this.linkLabel1.Location = new System.Drawing.Point(101, 50);
+            this.linkLabel1.Location = new System.Drawing.Point(98, 25);
             this.linkLabel1.Name = "linkLabel1";
             this.linkLabel1.Size = new System.Drawing.Size(196, 12);
             this.linkLabel1.TabIndex = 6;
@@ -454,16 +469,16 @@
             this.linkLabel1.Text = "http://www.EasyModbusTCP.net";
             this.linkLabel1.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel1_LinkClicked);
             // 
-            // label4
+            // lbInfo
             // 
-            this.label4.AutoSize = true;
-            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
-            this.label4.Location = new System.Drawing.Point(274, 27);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(420, 20);
-            this.label4.TabIndex = 7;
-            this.label4.Text = "...Modbus-TCP Server Listening (Port 503 Gantry)...";
+            this.lbInfo.AutoSize = true;
+            this.lbInfo.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbInfo.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
+            this.lbInfo.Location = new System.Drawing.Point(271, 2);
+            this.lbInfo.Name = "lbInfo";
+            this.lbInfo.Size = new System.Drawing.Size(420, 20);
+            this.lbInfo.TabIndex = 7;
+            this.lbInfo.Text = "...Modbus-TCP Server Listening (Port 503 Gantry)...";
             // 
             // listBox1
             // 
@@ -480,7 +495,7 @@
             // 
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(17, 123);
+            this.label5.Location = new System.Drawing.Point(14, 98);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(121, 13);
             this.label5.TabIndex = 9;
@@ -489,20 +504,20 @@
             // textBox1
             // 
             this.textBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox1.Location = new System.Drawing.Point(17, 309);
+            this.textBox1.Location = new System.Drawing.Point(11, 290);
             this.textBox1.Multiline = true;
             this.textBox1.Name = "textBox1";
             this.textBox1.ReadOnly = true;
-            this.textBox1.Size = new System.Drawing.Size(366, 173);
+            this.textBox1.Size = new System.Drawing.Size(366, 171);
             this.textBox1.TabIndex = 10;
-            this.textBox1.Text = resources.GetString("textBox1.Text");
+            this.textBox1.Text = "       Activated Function codes:\r\n\r\n";
             // 
             // checkBox1
             // 
             this.checkBox1.AutoSize = true;
             this.checkBox1.Checked = true;
             this.checkBox1.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBox1.Location = new System.Drawing.Point(499, 119);
+            this.checkBox1.Location = new System.Drawing.Point(324, 94);
             this.checkBox1.Name = "checkBox1";
             this.checkBox1.Size = new System.Drawing.Size(183, 16);
             this.checkBox1.TabIndex = 11;
@@ -513,7 +528,7 @@
             // lblVersion
             // 
             this.lblVersion.AutoSize = true;
-            this.lblVersion.Location = new System.Drawing.Point(103, 66);
+            this.lblVersion.Location = new System.Drawing.Point(100, 41);
             this.lblVersion.Name = "lblVersion";
             this.lblVersion.Size = new System.Drawing.Size(68, 12);
             this.lblVersion.TabIndex = 12;
@@ -524,10 +539,12 @@
             this.checkBox2.AutoSize = true;
             this.checkBox2.Checked = true;
             this.checkBox2.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBox2.Location = new System.Drawing.Point(34, 342);
+            this.checkBox2.Font = new System.Drawing.Font("Gulim", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.checkBox2.Location = new System.Drawing.Point(31, 317);
             this.checkBox2.Name = "checkBox2";
-            this.checkBox2.Size = new System.Drawing.Size(15, 14);
+            this.checkBox2.Size = new System.Drawing.Size(150, 16);
             this.checkBox2.TabIndex = 13;
+            this.checkBox2.Text = "FC 01 (Read Coils)";
             this.checkBox2.UseVisualStyleBackColor = true;
             this.checkBox2.CheckedChanged += new System.EventHandler(this.checkBox2_CheckedChanged);
             // 
@@ -536,10 +553,12 @@
             this.checkBox3.AutoSize = true;
             this.checkBox3.Checked = true;
             this.checkBox3.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBox3.Location = new System.Drawing.Point(34, 357);
+            this.checkBox3.Font = new System.Drawing.Font("Gulim", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.checkBox3.Location = new System.Drawing.Point(31, 332);
             this.checkBox3.Name = "checkBox3";
-            this.checkBox3.Size = new System.Drawing.Size(15, 14);
+            this.checkBox3.Size = new System.Drawing.Size(215, 16);
             this.checkBox3.TabIndex = 14;
+            this.checkBox3.Text = "FC 02 (Read Discrete Inputs)";
             this.checkBox3.UseVisualStyleBackColor = true;
             this.checkBox3.CheckedChanged += new System.EventHandler(this.checkBox3_CheckedChanged);
             // 
@@ -548,10 +567,12 @@
             this.checkBox4.AutoSize = true;
             this.checkBox4.Checked = true;
             this.checkBox4.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBox4.Location = new System.Drawing.Point(34, 372);
+            this.checkBox4.Font = new System.Drawing.Font("Gulim", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.checkBox4.Location = new System.Drawing.Point(31, 347);
             this.checkBox4.Name = "checkBox4";
-            this.checkBox4.Size = new System.Drawing.Size(15, 14);
+            this.checkBox4.Size = new System.Drawing.Size(232, 16);
             this.checkBox4.TabIndex = 15;
+            this.checkBox4.Text = "FC 03 (Read Holding Registers)";
             this.checkBox4.UseVisualStyleBackColor = true;
             this.checkBox4.CheckedChanged += new System.EventHandler(this.checkBox4_CheckedChanged);
             // 
@@ -560,10 +581,12 @@
             this.checkBox5.AutoSize = true;
             this.checkBox5.Checked = true;
             this.checkBox5.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBox5.Location = new System.Drawing.Point(34, 387);
+            this.checkBox5.Font = new System.Drawing.Font("Gulim", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.checkBox5.Location = new System.Drawing.Point(31, 362);
             this.checkBox5.Name = "checkBox5";
-            this.checkBox5.Size = new System.Drawing.Size(15, 14);
+            this.checkBox5.Size = new System.Drawing.Size(215, 16);
             this.checkBox5.TabIndex = 16;
+            this.checkBox5.Text = "FC 04 (Read Input Registers)";
             this.checkBox5.UseVisualStyleBackColor = true;
             this.checkBox5.CheckedChanged += new System.EventHandler(this.checkBox5_CheckedChanged);
             // 
@@ -572,10 +595,12 @@
             this.checkBox6.AutoSize = true;
             this.checkBox6.Checked = true;
             this.checkBox6.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBox6.Location = new System.Drawing.Point(34, 402);
+            this.checkBox6.Font = new System.Drawing.Font("Gulim", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.checkBox6.Location = new System.Drawing.Point(31, 377);
             this.checkBox6.Name = "checkBox6";
-            this.checkBox6.Size = new System.Drawing.Size(15, 14);
+            this.checkBox6.Size = new System.Drawing.Size(187, 16);
             this.checkBox6.TabIndex = 17;
+            this.checkBox6.Text = "FC 05 (Write Single Coil)";
             this.checkBox6.UseVisualStyleBackColor = true;
             this.checkBox6.CheckedChanged += new System.EventHandler(this.checkBox6_CheckedChanged);
             // 
@@ -584,10 +609,12 @@
             this.checkBox7.AutoSize = true;
             this.checkBox7.Checked = true;
             this.checkBox7.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBox7.Location = new System.Drawing.Point(34, 416);
+            this.checkBox7.Font = new System.Drawing.Font("Gulim", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.checkBox7.Location = new System.Drawing.Point(31, 391);
             this.checkBox7.Name = "checkBox7";
-            this.checkBox7.Size = new System.Drawing.Size(15, 14);
+            this.checkBox7.Size = new System.Drawing.Size(215, 16);
             this.checkBox7.TabIndex = 18;
+            this.checkBox7.Text = "FC 06 (Write Single Register)";
             this.checkBox7.UseVisualStyleBackColor = true;
             this.checkBox7.CheckedChanged += new System.EventHandler(this.checkBox7_CheckedChanged);
             // 
@@ -596,10 +623,12 @@
             this.checkBox8.AutoSize = true;
             this.checkBox8.Checked = true;
             this.checkBox8.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBox8.Location = new System.Drawing.Point(34, 446);
+            this.checkBox8.Font = new System.Drawing.Font("Gulim", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.checkBox8.Location = new System.Drawing.Point(31, 421);
             this.checkBox8.Name = "checkBox8";
-            this.checkBox8.Size = new System.Drawing.Size(15, 14);
+            this.checkBox8.Size = new System.Drawing.Size(234, 16);
             this.checkBox8.TabIndex = 20;
+            this.checkBox8.Text = "FC 16 (Write Multiple Registers)";
             this.checkBox8.UseVisualStyleBackColor = true;
             this.checkBox8.CheckedChanged += new System.EventHandler(this.checkBox8_CheckedChanged);
             // 
@@ -608,10 +637,12 @@
             this.checkBox9.AutoSize = true;
             this.checkBox9.Checked = true;
             this.checkBox9.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBox9.Location = new System.Drawing.Point(34, 431);
+            this.checkBox9.Font = new System.Drawing.Font("Gulim", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.checkBox9.Location = new System.Drawing.Point(31, 406);
             this.checkBox9.Name = "checkBox9";
-            this.checkBox9.Size = new System.Drawing.Size(15, 14);
+            this.checkBox9.Size = new System.Drawing.Size(206, 16);
             this.checkBox9.TabIndex = 19;
+            this.checkBox9.Text = "FC 15 (Write Multiple Coils)";
             this.checkBox9.UseVisualStyleBackColor = true;
             this.checkBox9.CheckedChanged += new System.EventHandler(this.checkBox9_CheckedChanged);
             // 
@@ -619,7 +650,7 @@
             // 
             this.btnProperties.BackgroundImage = global::EasyModbusServerSimulator.Properties.Resources.configure_2;
             this.btnProperties.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.btnProperties.Location = new System.Drawing.Point(621, 58);
+            this.btnProperties.Location = new System.Drawing.Point(338, 33);
             this.btnProperties.Name = "btnProperties";
             this.btnProperties.Size = new System.Drawing.Size(63, 48);
             this.btnProperties.TabIndex = 21;
@@ -629,7 +660,7 @@
             // pictureBox1
             // 
             this.pictureBox1.Image = global::EasyModbusServerSimulator.Properties.Resources.PLCLoggerCompactBitmap;
-            this.pictureBox1.Location = new System.Drawing.Point(14, 30);
+            this.pictureBox1.Location = new System.Drawing.Point(11, 5);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(80, 62);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
@@ -646,17 +677,19 @@
             this.checkBox10.AutoSize = true;
             this.checkBox10.Checked = true;
             this.checkBox10.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBox10.Location = new System.Drawing.Point(34, 461);
+            this.checkBox10.Font = new System.Drawing.Font("Gulim", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.checkBox10.Location = new System.Drawing.Point(31, 436);
             this.checkBox10.Name = "checkBox10";
-            this.checkBox10.Size = new System.Drawing.Size(15, 14);
+            this.checkBox10.Size = new System.Drawing.Size(269, 16);
             this.checkBox10.TabIndex = 22;
+            this.checkBox10.Text = "FC23 (Read/Write Multiple Registers)";
             this.checkBox10.UseVisualStyleBackColor = true;
             this.checkBox10.CheckedChanged += new System.EventHandler(this.checkBox10_CheckedChanged);
             // 
             // panel1
             // 
             this.panel1.Controls.Add(this.listBox1);
-            this.panel1.Location = new System.Drawing.Point(15, 138);
+            this.panel1.Location = new System.Drawing.Point(12, 113);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(668, 166);
             this.panel1.TabIndex = 23;
@@ -672,7 +705,7 @@
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Padding = new System.Windows.Forms.Padding(7, 2, 0, 2);
-            this.menuStrip1.Size = new System.Drawing.Size(1075, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(1102, 24);
             this.menuStrip1.TabIndex = 24;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -692,7 +725,7 @@
             // 
             // numericUpDown2
             // 
-            this.numericUpDown2.Location = new System.Drawing.Point(523, 310);
+            this.numericUpDown2.Location = new System.Drawing.Point(514, 285);
             this.numericUpDown2.Maximum = new decimal(new int[] {
             65515,
             0,
@@ -716,7 +749,7 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(417, 315);
+            this.label6.Location = new System.Drawing.Point(408, 290);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(67, 12);
             this.label6.TabIndex = 26;
@@ -725,7 +758,7 @@
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(417, 342);
+            this.label7.Location = new System.Drawing.Point(408, 317);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(67, 12);
             this.label7.TabIndex = 27;
@@ -734,7 +767,7 @@
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(417, 374);
+            this.label8.Location = new System.Drawing.Point(408, 349);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(67, 12);
             this.label8.TabIndex = 28;
@@ -742,7 +775,7 @@
             // 
             // numericUpDown3
             // 
-            this.numericUpDown3.Location = new System.Drawing.Point(523, 340);
+            this.numericUpDown3.Location = new System.Drawing.Point(514, 315);
             this.numericUpDown3.Maximum = new decimal(new int[] {
             65515,
             0,
@@ -765,7 +798,7 @@
             // 
             // numericUpDown4
             // 
-            this.numericUpDown4.Location = new System.Drawing.Point(523, 370);
+            this.numericUpDown4.Location = new System.Drawing.Point(514, 345);
             this.numericUpDown4.Maximum = new decimal(new int[] {
             65515,
             0,
@@ -789,7 +822,7 @@
             // lbReadStart
             // 
             this.lbReadStart.AutoSize = true;
-            this.lbReadStart.Location = new System.Drawing.Point(419, 402);
+            this.lbReadStart.Location = new System.Drawing.Point(410, 377);
             this.lbReadStart.Name = "lbReadStart";
             this.lbReadStart.Size = new System.Drawing.Size(67, 12);
             this.lbReadStart.TabIndex = 31;
@@ -798,7 +831,7 @@
             // lbReadQty
             // 
             this.lbReadQty.AutoSize = true;
-            this.lbReadQty.Location = new System.Drawing.Point(539, 402);
+            this.lbReadQty.Location = new System.Drawing.Point(530, 377);
             this.lbReadQty.Name = "lbReadQty";
             this.lbReadQty.Size = new System.Drawing.Size(61, 12);
             this.lbReadQty.TabIndex = 32;
@@ -806,7 +839,7 @@
             // 
             // tbReadStart
             // 
-            this.tbReadStart.Location = new System.Drawing.Point(484, 394);
+            this.tbReadStart.Location = new System.Drawing.Point(475, 369);
             this.tbReadStart.Name = "tbReadStart";
             this.tbReadStart.Size = new System.Drawing.Size(49, 21);
             this.tbReadStart.TabIndex = 33;
@@ -816,7 +849,7 @@
             // 
             // tbReadQty
             // 
-            this.tbReadQty.Location = new System.Drawing.Point(596, 397);
+            this.tbReadQty.Location = new System.Drawing.Point(587, 372);
             this.tbReadQty.Name = "tbReadQty";
             this.tbReadQty.Size = new System.Drawing.Size(49, 21);
             this.tbReadQty.TabIndex = 34;
@@ -827,7 +860,7 @@
             // lbWriteStart
             // 
             this.lbWriteStart.AutoSize = true;
-            this.lbWriteStart.Location = new System.Drawing.Point(419, 446);
+            this.lbWriteStart.Location = new System.Drawing.Point(410, 421);
             this.lbWriteStart.Name = "lbWriteStart";
             this.lbWriteStart.Size = new System.Drawing.Size(65, 12);
             this.lbWriteStart.TabIndex = 35;
@@ -836,7 +869,7 @@
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(535, 448);
+            this.label9.Location = new System.Drawing.Point(526, 423);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(59, 12);
             this.label9.TabIndex = 36;
@@ -844,17 +877,17 @@
             // 
             // tbWriteStart
             // 
-            this.tbWriteStart.Location = new System.Drawing.Point(484, 439);
+            this.tbWriteStart.Location = new System.Drawing.Point(475, 414);
             this.tbWriteStart.Name = "tbWriteStart";
             this.tbWriteStart.Size = new System.Drawing.Size(49, 21);
             this.tbWriteStart.TabIndex = 37;
-            this.tbWriteStart.Text = "1";
+            this.tbWriteStart.Text = "101";
             this.tbWriteStart.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.tbWriteStart.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tbWriteStart_KeyDown);
             // 
             // tbWriteQty
             // 
-            this.tbWriteQty.Location = new System.Drawing.Point(596, 439);
+            this.tbWriteQty.Location = new System.Drawing.Point(587, 414);
             this.tbWriteQty.Name = "tbWriteQty";
             this.tbWriteQty.Size = new System.Drawing.Size(49, 21);
             this.tbWriteQty.TabIndex = 38;
@@ -862,50 +895,116 @@
             this.tbWriteQty.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.tbWriteQty.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tbWriteQty_KeyDown);
             // 
+            // splitContainer1
+            // 
+            this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitContainer1.FixedPanel = System.Windows.Forms.FixedPanel.Panel1;
+            this.splitContainer1.Location = new System.Drawing.Point(0, 24);
+            this.splitContainer1.Name = "splitContainer1";
+            // 
+            // splitContainer1.Panel1
+            // 
+            this.splitContainer1.Panel1.Controls.Add(this.btnSTOP);
+            this.splitContainer1.Panel1.Controls.Add(this.btnStart);
+            this.splitContainer1.Panel1.Controls.Add(this.panel1);
+            this.splitContainer1.Panel1.Controls.Add(this.tbWriteQty);
+            this.splitContainer1.Panel1.Controls.Add(this.tbWriteStart);
+            this.splitContainer1.Panel1.Controls.Add(this.label2);
+            this.splitContainer1.Panel1.Controls.Add(this.label9);
+            this.splitContainer1.Panel1.Controls.Add(this.label3);
+            this.splitContainer1.Panel1.Controls.Add(this.lbWriteStart);
+            this.splitContainer1.Panel1.Controls.Add(this.pictureBox1);
+            this.splitContainer1.Panel1.Controls.Add(this.tbReadQty);
+            this.splitContainer1.Panel1.Controls.Add(this.linkLabel1);
+            this.splitContainer1.Panel1.Controls.Add(this.tbReadStart);
+            this.splitContainer1.Panel1.Controls.Add(this.lbInfo);
+            this.splitContainer1.Panel1.Controls.Add(this.lbReadQty);
+            this.splitContainer1.Panel1.Controls.Add(this.label5);
+            this.splitContainer1.Panel1.Controls.Add(this.lbReadStart);
+            this.splitContainer1.Panel1.Controls.Add(this.lblVersion);
+            this.splitContainer1.Panel1.Controls.Add(this.numericUpDown4);
+            this.splitContainer1.Panel1.Controls.Add(this.checkBox2);
+            this.splitContainer1.Panel1.Controls.Add(this.numericUpDown3);
+            this.splitContainer1.Panel1.Controls.Add(this.checkBox3);
+            this.splitContainer1.Panel1.Controls.Add(this.label8);
+            this.splitContainer1.Panel1.Controls.Add(this.checkBox4);
+            this.splitContainer1.Panel1.Controls.Add(this.label7);
+            this.splitContainer1.Panel1.Controls.Add(this.checkBox5);
+            this.splitContainer1.Panel1.Controls.Add(this.label6);
+            this.splitContainer1.Panel1.Controls.Add(this.numericUpDown2);
+            this.splitContainer1.Panel1.Controls.Add(this.checkBox6);
+            this.splitContainer1.Panel1.Controls.Add(this.checkBox7);
+            this.splitContainer1.Panel1.Controls.Add(this.btnProperties);
+            this.splitContainer1.Panel1.Controls.Add(this.checkBox1);
+            this.splitContainer1.Panel1.Controls.Add(this.checkBox9);
+            this.splitContainer1.Panel1.Controls.Add(this.checkBox10);
+            this.splitContainer1.Panel1.Controls.Add(this.checkBox8);
+            this.splitContainer1.Panel1.Controls.Add(this.textBox1);
+            // 
+            // splitContainer1.Panel2
+            // 
+            this.splitContainer1.Panel2.Controls.Add(this.tableLayoutPanel1);
+            this.splitContainer1.Size = new System.Drawing.Size(1102, 681);
+            this.splitContainer1.SplitterDistance = 691;
+            this.splitContainer1.TabIndex = 39;
+            // 
+            // btnSTOP
+            // 
+            this.btnSTOP.AutoSize = true;
+            this.btnSTOP.Image = global::EasyModbusServerSimulator.Properties.Resources.process_stop_2;
+            this.btnSTOP.Location = new System.Drawing.Point(513, 46);
+            this.btnSTOP.Name = "btnSTOP";
+            this.btnSTOP.Size = new System.Drawing.Size(58, 38);
+            this.btnSTOP.TabIndex = 40;
+            this.btnSTOP.UseVisualStyleBackColor = true;
+            this.btnSTOP.Click += new System.EventHandler(this.btnSTOP_Click);
+            // 
+            // btnStart
+            // 
+            this.btnStart.AutoSize = true;
+            this.btnStart.Image = global::EasyModbusServerSimulator.Properties.Resources.play_singleico;
+            this.btnStart.Location = new System.Drawing.Point(449, 46);
+            this.btnStart.Name = "btnStart";
+            this.btnStart.Size = new System.Drawing.Size(58, 38);
+            this.btnStart.TabIndex = 39;
+            this.btnStart.UseVisualStyleBackColor = true;
+            this.btnStart.Click += new System.EventHandler(this.btnStart_Click);
+            // 
+            // tableLayoutPanel1
+            // 
+            this.tableLayoutPanel1.ColumnCount = 1;
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel1.Controls.Add(this.tabControl1, 0, 1);
+            this.tableLayoutPanel1.Controls.Add(this.panel2, 0, 0);
+            this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
+            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
+            this.tableLayoutPanel1.RowCount = 2;
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 100F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(407, 681);
+            this.tableLayoutPanel1.TabIndex = 0;
+            // 
+            // panel2
+            // 
+            this.panel2.Controls.Add(this.label1);
+            this.panel2.Controls.Add(this.numericUpDown1);
+            this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel2.Location = new System.Drawing.Point(3, 3);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(401, 94);
+            this.panel2.TabIndex = 1;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1075, 526);
-            this.Controls.Add(this.tbWriteQty);
-            this.Controls.Add(this.tbWriteStart);
-            this.Controls.Add(this.label9);
-            this.Controls.Add(this.lbWriteStart);
-            this.Controls.Add(this.tbReadQty);
-            this.Controls.Add(this.tbReadStart);
-            this.Controls.Add(this.lbReadQty);
-            this.Controls.Add(this.lbReadStart);
-            this.Controls.Add(this.numericUpDown4);
-            this.Controls.Add(this.numericUpDown3);
-            this.Controls.Add(this.label8);
-            this.Controls.Add(this.label7);
-            this.Controls.Add(this.label6);
-            this.Controls.Add(this.numericUpDown2);
-            this.Controls.Add(this.panel1);
-            this.Controls.Add(this.checkBox10);
-            this.Controls.Add(this.btnProperties);
-            this.Controls.Add(this.checkBox8);
-            this.Controls.Add(this.checkBox9);
-            this.Controls.Add(this.checkBox7);
-            this.Controls.Add(this.checkBox6);
-            this.Controls.Add(this.checkBox5);
-            this.Controls.Add(this.checkBox4);
-            this.Controls.Add(this.checkBox3);
-            this.Controls.Add(this.checkBox2);
-            this.Controls.Add(this.lblVersion);
-            this.Controls.Add(this.checkBox1);
-            this.Controls.Add(this.textBox1);
-            this.Controls.Add(this.label5);
-            this.Controls.Add(this.label4);
-            this.Controls.Add(this.linkLabel1);
-            this.Controls.Add(this.pictureBox1);
-            this.Controls.Add(this.label3);
-            this.Controls.Add(this.label2);
-            this.Controls.Add(this.label1);
-            this.Controls.Add(this.numericUpDown1);
-            this.Controls.Add(this.tabControl1);
+            this.AutoScroll = true;
+            this.AutoSize = true;
+            this.ClientSize = new System.Drawing.Size(1102, 705);
+            this.Controls.Add(this.splitContainer1);
             this.Controls.Add(this.menuStrip1);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.SizableToolWindow;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "MainForm";
@@ -933,6 +1032,14 @@
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown4)).EndInit();
+            this.splitContainer1.Panel1.ResumeLayout(false);
+            this.splitContainer1.Panel1.PerformLayout();
+            this.splitContainer1.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
+            this.splitContainer1.ResumeLayout(false);
+            this.tableLayoutPanel1.ResumeLayout(false);
+            this.panel2.ResumeLayout(false);
+            this.panel2.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -955,8 +1062,6 @@
         private System.Windows.Forms.DataGridView dataGridView4;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn3;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn4;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn5;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn6;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column1;
@@ -967,7 +1072,7 @@
         private System.Windows.Forms.VScrollBar vScrollBar2;
         private System.Windows.Forms.VScrollBar vScrollBar3;
         private System.Windows.Forms.VScrollBar vScrollBar4;
-        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label lbInfo;
         private System.Windows.Forms.ListBox listBox1;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
@@ -1005,6 +1110,13 @@
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.TextBox tbWriteStart;
         private System.Windows.Forms.TextBox tbWriteQty;
+        private System.Windows.Forms.SplitContainer splitContainer1;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
+        private System.Windows.Forms.Panel panel2;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn5;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn6;
+        private System.Windows.Forms.Button btnStart;
+        private System.Windows.Forms.Button btnSTOP;
     }
 }
 

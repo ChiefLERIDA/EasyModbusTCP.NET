@@ -141,19 +141,6 @@
   <metadata name="dataGridViewTextBoxColumn6.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
-  <data name="textBox1.Text" xml:space="preserve">
-    <value>       Activated Function codes:
-
-       FC 01 (Read Coils)
-       FC 02 (Read Discrete Inputs)
-       FC 03 (Read Holding Registers)
-       FC 04 (Read Input Registers)
-       FC 05 (Write Single Coil)
-       FC 06 (Write Single Register)
-       FC 15 (Write Multiple Coils)
-       FC 16 (Write Multiple Registers)
-       FC 23 (Read/Write Multiple Registers)</value>
-  </data>
   <metadata name="form1BindingSource.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>17, 17</value>
   </metadata>

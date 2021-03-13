@@ -131,6 +131,8 @@ namespace EasyModbus
             {
                 tcpClient = server.EndAcceptTcpClient(asyncResult);
                 tcpClient.ReceiveTimeout = 4000;
+
+                //
                 if (ipAddress != null)
                 {
                     string ipEndpoint = tcpClient.Client.RemoteEndPoint.ToString();
@@ -402,7 +404,8 @@ namespace EasyModbus
                     }
                     catch (Exception) { }
                 }
-                tcpHandler = new TCPHandler(LocalIPAddress, port);
+
+                tcpHandler = new TCPHandler(IPAddress.Parse("127.0.0.1"), port);
                 if (debug) StoreLogData.Instance.Store($"EasyModbus Server listing for incomming data at Port {port}, local IP {LocalIPAddress}", System.DateTime.Now);
                 tcpHandler.dataChanged += new TCPHandler.DataChanged(ProcessReceivedData);
                 tcpHandler.numberOfClientsChanged += new TCPHandler.NumberOfClientsChanged(numberOfClientsChanged);
